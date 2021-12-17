@@ -3,6 +3,7 @@ import Header from 'src/Components/Header';
 import GridWithCards from 'src/Components/DynamicGrid';
 import { useDispatch, useSelector } from 'react-redux';
 import DotLoader from 'src/Components/Loaders/DotLoader';
+import MainContainer from 'src/Components/MainContainer';
 import { getTabsRequest } from '../../app/actions/tabs';
 
 function HomePage() {
@@ -19,8 +20,7 @@ function HomePage() {
   return (
     <>
       <Header />
-      {loading ? <DotLoader />
-        : <GridWithCards cards={tabs} />}
+      <MainContainer />
     </>
   );
 }
