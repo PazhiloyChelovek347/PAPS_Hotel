@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { Button } from '@mui/material';
 import HomePage from './Pages/HomePage';
 import { getTabsRequest } from './app/actions/tabs';
-import RegModal from './Components/Modals/RegModal';
+import LogModal from './Components/Modals/LogModal';
 
 function App() {
   return (
     <>
-      <RegModal open toggleOpen="" />
+      <LogModal open toggleOpen="" />
       {/* <HomePage /> */}
     </>
   );

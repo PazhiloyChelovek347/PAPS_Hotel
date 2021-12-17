@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => createStyles({
   },
 }));
 
-const RegModal = ({ open, toggleOpen }) => {
+const LogModal = ({ open, toggleOpen }) => {
   const classes = useStyles();
   return (
     <Modal
@@ -48,8 +48,12 @@ const RegModal = ({ open, toggleOpen }) => {
           <span>Password: </span>
           <TextField variant="outlined" className={classes.textFields} />
         </div>
+        <div className={classes.divWithInput}>
+          <span>FIO: </span>
+          <TextField variant="outlined" className={classes.textFields} />
+        </div>
       </Paper>
     </Modal>
   );
 };
-export default RegModal;
+export default LogModal;
