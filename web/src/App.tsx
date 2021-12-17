@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Button } from '@mui/material';
 import HomePage from './Pages/HomePage';
 import { getTabsRequest } from './app/actions/tabs';
+import RegModal from './Components/Modals/RegModal';
 
 function App() {
   return (
     <>
-      <HomePage />
+      <RegModal open toggleOpen="" />
+      {/* <HomePage /> */}
     </>
   );
 }
