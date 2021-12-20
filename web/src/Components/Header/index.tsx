@@ -5,13 +5,15 @@ import {
 import { DocumentScanner } from '@mui/icons-material';
 
 const Header = () => (
-  <AppBar position="relative" style={{ backgroundColor: '#81accc' }}>
-    <Toolbar>
-      <DocumentScanner sx={{ mr: 2 }} />
-      <Typography variant="h6" color="inherit" noWrap>
-        <Link href="/">Home</Link>
-      </Typography>
-    </Toolbar>
+  <AppBar position="relative" style={{ backgroundColor: '#1565c0' }}>
+    <Link href="/" underline="none" color="white">
+      <Toolbar>
+        <DocumentScanner sx={{ mr: 2 }} />
+        <Typography variant="h6" color="inherit" noWrap>
+          Home
+        </Typography>
+      </Toolbar>
+    </Link>
   </AppBar>
 );
 

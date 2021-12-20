@@ -6,6 +6,7 @@ import HomePage from './Pages/HomePage';
 import { getTabsRequest } from './app/actions/tabs';
 import LogModal from './Components/Modals/LogModal';
 import ConfirmModal from './Components/Modals/ConfirmModal';
+import MainTable from './Pages/MainTable';
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
+        </Routes>
+        <Routes>
+          <Route path="/main" element={<MainTable />} />
         </Routes>
       </Router>
     </>

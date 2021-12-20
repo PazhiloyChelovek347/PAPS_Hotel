@@ -62,7 +62,7 @@ function MainContainer() {
         </div>
       </Container>
       <Container>
-        <Button className={classes.bigBooba} variant="contained" color="primary">
+        <Button href="/main" className={classes.bigBooba} variant="contained" color="primary">
           <Typography variant="h2">
             Let&apos;s start booking!
           </Typography>
