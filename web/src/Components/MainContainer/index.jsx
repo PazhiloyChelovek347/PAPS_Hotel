@@ -68,9 +68,7 @@ function MainContainer() {
           </Typography>
         </Button>
       </Container>
-      <Container>
-        Preview
-      </Container>
+      <GridWithCards cards={[1, 2, 3, 4, 5, 6, 7]} />
     </Container>
   );
 }

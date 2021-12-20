@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@mui/styles';
 import {
   Card,
   CardHeader,
@@ -9,8 +9,8 @@ import {
   Avatar,
   IconButton,
   Typography,
-} from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
+} from '@mui/material';
+import { red } from '@mui/material/colors';
 import {
   Favorite as FavoriteIcon,
   Share as ShareIcon,
@@ -18,20 +18,13 @@ import {
 } from '@mui/icons-material';
 import { Tabs } from 'src/types/tabs';
 
-const useStyles = makeStyles((theme) => createStyles({
+const useStyles = makeStyles((theme: any) => createStyles({
   root: {
     maxWidth: 380,
   },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
   },
   expandOpen: {
     transform: 'rotate(180deg)',
@@ -41,34 +34,24 @@ const useStyles = makeStyles((theme) => createStyles({
   },
 }));
 
-export default function ItemCard({ data }: {data:Tabs}) {
+export default function ItemCard({ data }: {data:any}) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   return (
     <Card className={classes.root}>
       <CardHeader
-        avatar={(
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {data.singer.split(' ')[0][0] + (data.singer.split(' ')[1] ? data.singer.split(' ')[1][0] : '')}
-          </Avatar>
-        )}
         action={(
           <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
         )}
-        title={data.title}
-        subheader={data.group}
+        title={data}
+        // subheader={data.group}
       />
       <CardMedia
         className={classes.media}
-        image={data.imgLink}
-        title={data.group}
+        image="https://icdn.lenta.ru/images/2021/04/27/16/20210427163138131/square_320_c09ebae17387b7d6eeb9fa0d42afe5ee.jpg"
+        // title={data.group}
       />
       {/* <CardContent /> */}
       <CardActions disableSpacing>

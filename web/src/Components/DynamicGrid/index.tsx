@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container, Grid } from '@material-ui/core';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { Container, Grid } from '@mui/material';
+import { makeStyles, createStyles } from '@mui/styles';
 import ItemCard from 'src/Components/Card';
 import { Tabs } from 'src/types/tabs';
 
@@ -11,16 +11,16 @@ const useStyles = makeStyles(() => createStyles({
     gap: 25,
   },
   container: {
-    marginTop: '25px',
+    marginTop: '50px',
   },
 }));
 
-function GridWithCards({ cards }: { cards: Tabs[] }) {
+function GridWithCards({ cards }: { cards: any[] }) {
   const classes = useStyles();
   return (
     <Container className={classes.container}>
       <Grid className={classes.grid}>
-        {cards.map((card: Tabs) => (
+        {cards.map((card: any) => (
           <ItemCard data={card} />
         ))}
       </Grid>
