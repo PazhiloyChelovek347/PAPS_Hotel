@@ -1,5 +1,5 @@
 let id = 0;
-function createData(name, city, rooms, hclass, price) {
+function createData(name, city, rooms, hclass, price, bookings = []) {
   id += 1;
   return {
     name,
@@ -8,6 +8,7 @@ function createData(name, city, rooms, hclass, price) {
     hclass,
     price,
     id,
+    bookings,
   };
 }
 

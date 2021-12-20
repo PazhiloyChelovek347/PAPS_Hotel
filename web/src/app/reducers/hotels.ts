@@ -1,4 +1,7 @@
-import { HOTELS_FAILURE, HOTELS_REQUEST, HOTELS_SUCCESS } from 'src/utils/actions/hotels';
+import {
+  HOTELS_ADD_FAILURE,
+  HOTELS_ADD_REQUEST, HOTELS_ADD_SUCCESS, HOTELS_FAILURE, HOTELS_REQUEST, HOTELS_SUCCESS,
+} from 'src/utils/actions/hotels';
 import { ExtendedAction } from '../../types/action';
 
 // {
@@ -24,10 +27,23 @@ const initialState = {
 
 export default function hotelsReducer(state = initialState, action: ExtendedAction) {
   switch (action.type) {
+    case HOTELS_ADD_REQUEST:
     case HOTELS_REQUEST:
       return {
         ...state,
         loading: true,
+        error: {
+          hasError: false,
+          title: '',
+          description: '',
+        },
+      };
+    case HOTELS_ADD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        // @ts-ignore
+        hotels: [...state.hotels, action.hotel],
         error: {
           hasError: false,
           title: '',
@@ -46,6 +62,7 @@ export default function hotelsReducer(state = initialState, action: ExtendedActi
           description: '',
         },
       };
+    case HOTELS_ADD_FAILURE:
     case HOTELS_FAILURE:
       return {
         ...state,

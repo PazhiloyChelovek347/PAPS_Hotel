@@ -23,7 +23,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { Button, Link } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { getHotelsRequest } from 'src/app/actions/hotels';
+import { addHotelRequest, getHotelsRequest } from 'src/app/actions/hotels';
 
 // let id = 0;
 // function createData(name, city, rooms, hclass, price) {
@@ -227,7 +227,7 @@ export default function HotelTable({ rows = [] }) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // React.useEffect(() => {
   //   dispatch(getHotelsRequest());
@@ -338,7 +338,20 @@ export default function HotelTable({ rows = [] }) {
                         scope="row"
                         padding="none"
                       >
-                        <Button style={{ width: '100%' }}>
+                        <Button
+                          style={{ width: '100%' }}
+                          // onClick={() => {
+                          //   dispatch(addHotelRequest({
+                          //     name: 'Grand Gachi hotel',
+                          //     city: 'Taganrog',
+                          //     rooms: 31,
+                          //     hclass: 'Lux',
+                          //     price: 300,
+                          //     id: 1,
+                          //     bookings: 0,
+                          //   }));
+                          // }}
+                        >
                           {row.name}
                         </Button>
                       </TableCell>
