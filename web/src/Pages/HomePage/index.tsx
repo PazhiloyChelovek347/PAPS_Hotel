@@ -4,7 +4,7 @@ import GridWithCards from 'src/Components/DynamicGrid';
 import { useDispatch, useSelector } from 'react-redux';
 import DotLoader from 'src/Components/Loaders/DotLoader';
 import MainContainer from 'src/Components/MainContainer';
-import { getTabsRequest } from '../../app/actions/tabs';
+import { getHotelsRequest } from '../../app/actions/hotels';
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ function HomePage() {
   const loading = useSelector((state) => state.tabsReducer?.loading);
 
   useEffect(() => {
-    dispatch(getTabsRequest());
+    dispatch(getHotelsRequest());
   }, [dispatch]);
 
   return (

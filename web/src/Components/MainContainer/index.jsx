@@ -7,7 +7,7 @@ import {
   Button, Card, Container, Typography,
 } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { getTabsRequest } from '../../app/actions/tabs';
+import { getHotelsRequest } from '../../app/actions/hotels';
 
 function MainContainer() {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ function MainContainer() {
   }));
 
   useEffect(() => {
-    dispatch(getTabsRequest());
+    dispatch(getHotelsRequest());
   }, [dispatch]);
 
   const classes = useStyles();

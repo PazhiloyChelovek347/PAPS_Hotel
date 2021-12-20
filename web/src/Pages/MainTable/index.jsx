@@ -7,7 +7,7 @@ import MainContainer from 'src/Components/MainContainer';
 import HotelTable from 'src/Components/Table';
 import { Container } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { getTabsRequest } from '../../app/actions/tabs';
+import { getHotelsRequest } from '../../app/actions/hotels';
 
 const useStyles = makeStyles((theme) => createStyles({
   tableContainer: {
@@ -17,22 +17,18 @@ const useStyles = makeStyles((theme) => createStyles({
 
 function MainTable() {
   const dispatch = useDispatch();
-  // @ts-ignore
-  const tabs = useSelector((state) => state.tabsReducer?.tabs);
-  // @ts-ignore
-  const loading = useSelector((state) => state.tabsReducer?.loading);
-
+  const hotels = useSelector((state) => state.hotelsReducer?.hotels);
   const classes = useStyles();
 
   useEffect(() => {
-    dispatch(getTabsRequest());
+    dispatch(getHotelsRequest());
   }, [dispatch]);
 
   return (
     <>
       <Header />
       <Container className={classes.tableContainer}>
-        <HotelTable />
+        <HotelTable rows={hotels} />
       </Container>
     </>
   );

@@ -1,9 +1,9 @@
 import { takeEvery } from 'redux-saga/effects';
-import { getTabsRequest } from '../actions/tabs';
+import { getHotelsRequest } from '../actions/hotels';
 import { loginStart } from '../actions/user';
 
 import userSaga from './user';
-import tabsSaga from './tabs';
+import hotelsSaga from './hotels';
 // import logoutUserSaga from './logout';
 // import getUserSaga from './userInfo';
 // import postNewsSaga from './newsPost';
@@ -13,7 +13,7 @@ import tabsSaga from './tabs';
 
 export default function* sagaWatcher() {
   yield takeEvery(loginStart, userSaga.loginUserSaga);
-  yield takeEvery(getTabsRequest, tabsSaga.getTabsSaga);
+  yield takeEvery(getHotelsRequest, hotelsSaga.getHotelsSaga);
   // yield takeEvery('FETCH_NEWS_REQUEST', fetchNewsSaga);
   // yield takeEvery('SIGNUP_REQUEST', signupSaga);
   // yield takeEvery('LOGOUT_REQUEST', logoutUserSaga);

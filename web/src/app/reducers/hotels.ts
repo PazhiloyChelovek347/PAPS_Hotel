@@ -1,4 +1,4 @@
-import { TABS_FAILURE, TABS_REQUEST, TABS_SUCCESS } from 'src/utils/actions/tabs';
+import { HOTELS_FAILURE, HOTELS_REQUEST, HOTELS_SUCCESS } from 'src/utils/actions/hotels';
 import { ExtendedAction } from '../../types/action';
 
 // {
@@ -14,7 +14,7 @@ import { ExtendedAction } from '../../types/action';
 
 const initialState = {
   loading: false,
-  tabs: [],
+  hotels: [],
   error: {
     hasError: false,
     title: '',
@@ -22,9 +22,9 @@ const initialState = {
   },
 };
 
-export default function tabsReducer(state = initialState, action: ExtendedAction) {
+export default function hotelsReducer(state = initialState, action: ExtendedAction) {
   switch (action.type) {
-    case TABS_REQUEST:
+    case HOTELS_REQUEST:
       return {
         ...state,
         loading: true,
@@ -34,19 +34,19 @@ export default function tabsReducer(state = initialState, action: ExtendedAction
           description: '',
         },
       };
-    case TABS_SUCCESS:
+    case HOTELS_SUCCESS:
       return {
         ...state,
         loading: false,
         // @ts-ignore
-        tabs: action.tabs,
+        hotels: action.hotels,
         error: {
           hasError: false,
           title: '',
           description: '',
         },
       };
-    case TABS_FAILURE:
+    case HOTELS_FAILURE:
       return {
         ...state,
         loading: false,

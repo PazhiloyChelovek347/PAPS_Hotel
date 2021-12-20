@@ -22,25 +22,27 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { Button, Link } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { getHotelsRequest } from 'src/app/actions/hotels';
 
-let id = 0;
-function createData(name, city, rooms, hclass, price) {
-  id += 1;
-  return {
-    name,
-    city,
-    rooms,
-    hclass,
-    price,
-    id,
-  };
-}
+// let id = 0;
+// function createData(name, city, rooms, hclass, price) {
+//   id += 1;
+//   return {
+//     name,
+//     city,
+//     rooms,
+//     hclass,
+//     price,
+//     id,
+//   };
+// }
 
-const rows = [
-  createData('Grand Gachi hotel', 'Taganrog', 31, 'Lux', 300, id),
-  createData('Dungeon plaza', 'Taganrog', 32, 'Lux', 300, id),
-  createData('Hotel "Let\'s celebrate and..."', 'Rostov', 2, 'Default', 100, id),
-];
+// const rows = [
+//   createData('Grand Gachi hotel', 'Taganrog', 31, 'Lux', 300, id),
+//   createData('Dungeon plaza', 'Taganrog', 32, 'Lux', 300, id),
+//   createData('Hotel "Let\'s celebrate and..."', 'Rostov', 2, 'Default', 100, id),
+// ];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -218,13 +220,18 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function HotelTable() {
+export default function HotelTable({ rows = [] }) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('city');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  // const dispatch = useDispatch();
+
+  // React.useEffect(() => {
+  //   dispatch(getHotelsRequest());
+  // }, [dispatch]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
