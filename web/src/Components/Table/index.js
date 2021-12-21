@@ -222,7 +222,7 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function HotelTable({ rows = [] }) {
+export default function HotelTable({ rows = [], setAllForModal }) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('city');
   const [selected, setSelected] = React.useState([]);
@@ -343,6 +343,7 @@ export default function HotelTable({ rows = [] }) {
                         <Button
                           style={{ width: '100%' }}
                           onClick={() => {
+                            setAllForModal({ open: true, toggleOpen: (prev) => setAllForModal({ ...prev, open: false }), hotel: row });
                           }}
                         >
                           {row.name}
@@ -377,10 +378,10 @@ export default function HotelTable({ rows = [] }) {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
+      {/* <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
-      />
+      /> */}
     </Box>
   );
 }
