@@ -5,6 +5,8 @@ import {
 } from '@mui/material';
 import { DocumentScanner } from '@mui/icons-material';
 import { createStyles, makeStyles } from '@mui/styles';
+import { useDispatch } from 'react-redux';
+import { editHotelRequest } from 'src/app/actions/hotels';
 
 const useStyles = makeStyles((theme) => createStyles({
   paper: {
@@ -30,18 +32,46 @@ const useStyles = makeStyles((theme) => createStyles({
   },
 }));
 
-const ConfirmModal = ({ open = false, toggleOpen = () => {}, action = 'this' }) => {
+const ConfirmModal = ({
+  allForModal: {
+    open = false,
+    toggleOpen = () => {},
+    action = 'this',
+    setConfirm = () => {},
+    newHotel = {},
+  },
+}) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   return (
     <Modal
       open={open}
-      onClose={() => { open = !open; }}
+      onClose={toggleOpen}
     >
       <Paper className={classes.paper}>
         <Typography variant="h5">{`Are you sure about ${action}`}</Typography>
         <div className={classes.divWithInput}>
-          <Button variant="contained" color="error">Cancel</Button>
-          <Button variant="contained" color="success">Confirm</Button>
+          <Button
+            onClick={() => {
+              setConfirm(false);
+              toggleOpen();
+            }}
+            variant="contained"
+            color="error"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              setConfirm(true);
+              dispatch(editHotelRequest(newHotel));
+              toggleOpen();
+            }}
+            variant="contained"
+            color="success"
+          >
+            Confirm
+          </Button>
         </div>
       </Paper>
     </Modal>

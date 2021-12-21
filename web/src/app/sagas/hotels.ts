@@ -53,6 +53,7 @@ export default {
       // const response: ResponseGenerator = yield call(axiosInstance.post, '/user/signin', { login: data.payload.login, password: data.payload.password });
       // localStorage.setItem('token', response.data.token);
       // localStorage.setItem('isLoggedIn', 'true');
+      console.log(data.payload);
       yield put({ type: HOTELS_EDIT_SUCCESS, hotel: data.payload });
     } catch (error) {
       // localStorage.removeItem('token');

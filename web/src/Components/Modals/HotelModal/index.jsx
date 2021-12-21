@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AppBar, Container, Modal, Paper, Toolbar, Typography,
   TextField,
@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 import { DocumentScanner } from '@mui/icons-material';
 import { createStyles, makeStyles } from '@mui/styles';
+import ConfirmModal from '../ConfirmModal';
 
 const useStyles = makeStyles((theme) => createStyles({
   paper: {
@@ -45,13 +46,25 @@ const useStyles = makeStyles((theme) => createStyles({
   },
 }));
 
-const HotelModal = ({ allForModal: { open, toggleOpen, hotel } }) => {
+const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfirm = () => {} }) => {
   const classes = useStyles();
-  const isAdmin = true;
+  const [isAdmin, isAdminSet] = useState(true);
+  const [newHotel, setNewHotel] = useState({});
+
+  useEffect(() => { console.log(newHotel); });
+
+  const handleChange = (event) => {
+    setNewHotel((p) => ({ ...p, [event.target.id]: event.target.value }));
+  };
+
+  // useEffect(() => {
+  //   setNewHotel(hotel);
+  // });
+
   return (
     <Modal
       open={open}
-      onClose={() => { toggleOpen(); }}
+      onClose={() => { toggleOpen(); setNewHotel({}); }}
     >
       <Paper className={classes.paper}>
         <span><Typography variant="h5">{`Hotel "${hotel?.name}"`}</Typography></span>
@@ -61,47 +74,101 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel } }) => {
               <span>
                 Name:
               </span>
-              <TextField value={hotel?.name} variant="outlined" className={classes.textFields} disabled={!isAdmin} />
+              <TextField
+                id="name"
+                defaultValue={hotel?.name}
+                variant="outlined"
+                className={classes.textFields}
+                disabled={!isAdmin}
+                onChange={handleChange}
+              />
             </div>
           )}
           <div className={classes.divWithInput}>
             <span>
               City:
             </span>
-            <TextField value={hotel?.city} variant="outlined" className={classes.textFields} disabled={!isAdmin} />
+            <TextField
+              id="city"
+              defaultValue={hotel?.city}
+              variant="outlined"
+              className={classes.textFields}
+              disabled={!isAdmin}
+              onChange={handleChange}
+            />
           </div>
           <div className={classes.divWithInput}>
             <span>
               Rooms:
             </span>
-            <TextField value={hotel?.rooms} variant="outlined" className={classes.textFields} disabled={!isAdmin} />
+            <TextField
+              id="rooms"
+              defaultValue={hotel?.rooms}
+              variant="outlined"
+              className={classes.textFields}
+              disabled={!isAdmin}
+              onChange={handleChange}
+            />
           </div>
           <div className={classes.divWithInput}>
             <span>
               Class:
             </span>
-            <TextField value={hotel?.hclass} variant="outlined" className={classes.textFields} disabled={!isAdmin} />
+            <TextField
+              id="class"
+              defaultValue={hotel?.hclass}
+              variant="outlined"
+              className={classes.textFields}
+              disabled={!isAdmin}
+              onChange={handleChange}
+            />
           </div>
           <div className={classes.divWithInput}>
             <span>
               Price:
             </span>
-            <TextField value={hotel?.price} variant="outlined" className={classes.textFields} disabled={!isAdmin} />
+            <TextField
+              id="price"
+              defaultValue={hotel?.price}
+              variant="outlined"
+              className={classes.textFields}
+              disabled={!isAdmin}
+              onChange={handleChange}
+            />
           </div>
-          {isAdmin && (
-            <div className={classes.divWithInput}>
-              <span>
-                Name:
-              </span>
-              <TextField value={hotel?.name} variant="outlined" className={classes.textFields} disabled={!isAdmin} />
-            </div>
-          )}
         </div>
         <div className={classes.divWithButtons}>
-          <Button variant="contained">Close</Button>
-          {isAdmin && <Button variant="contained" color="success">Edit</Button>}
-          {isAdmin && <Button variant="contained" color="error">Delete</Button>}
-          {!isAdmin && <Button variant="contained">Book</Button>}
+          <Button variant="contained" onClick={toggleOpen}>Close</Button>
+          {isAdmin && (
+          <Button
+            onClick={() => setAllConfirm((p) => ({
+              ...p, open: true, action: 'editing', newHotel: { ...hotel, ...newHotel },
+            }))}
+            variant="contained"
+            color="success"
+          >
+            Edit
+          </Button>
+          )}
+          {isAdmin && (
+          <Button
+            onClick={() => setAllConfirm((p) => ({ ...p, open: true, action: 'delete' }))}
+            variant="contained"
+            color="error"
+          >
+            Delete
+          </Button>
+          )}
+          {!isAdmin && (
+          <Button
+            onClick={() => setAllConfirm((p) => ({
+              ...p, open: true, action: 'booking',
+            }))}
+            variant="contained"
+          >
+            Book
+          </Button>
+          )}
         </div>
       </Paper>
     </Modal>
