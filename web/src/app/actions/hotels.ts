@@ -1,14 +1,16 @@
 import { createAction } from 'redux-actions';
-import { HOTELS_REQUEST, HOTELS_ADD_REQUEST } from 'src/utils/actions/hotels';
+import {
+  HOTELS_REQUEST, HOTELS_ADD_REQUEST, HOTELS_EDIT_REQUEST, HOTELS_DELETE_REQUEST,
+} from 'src/utils/actions/hotels';
 
 export const getHotelsRequest = createAction(HOTELS_REQUEST);
 export const addHotelRequest = createAction(HOTELS_ADD_REQUEST);
-// export const signupStart = createAction('SIGNUP_START');
-// export const setToken = createAction('SET_TOKEN');
+export const editHotelRequest = createAction(HOTELS_EDIT_REQUEST);
+export const delHotelRequest = createAction(HOTELS_DELETE_REQUEST);
 
 export default {
   getHotelsRequest,
   addHotelRequest,
-  // signupStart,
-  // setToken,
+  editHotelRequest,
+  delHotelRequest,
 };

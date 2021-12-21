@@ -23,7 +23,9 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { Button, Link } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { addHotelRequest, getHotelsRequest } from 'src/app/actions/hotels';
+import {
+  addHotelRequest, delHotelRequest, editHotelRequest, getHotelsRequest,
+} from 'src/app/actions/hotels';
 
 // let id = 0;
 // function createData(name, city, rooms, hclass, price) {
@@ -340,17 +342,8 @@ export default function HotelTable({ rows = [] }) {
                       >
                         <Button
                           style={{ width: '100%' }}
-                          // onClick={() => {
-                          //   dispatch(addHotelRequest({
-                          //     name: 'Grand Gachi hotel',
-                          //     city: 'Taganrog',
-                          //     rooms: 31,
-                          //     hclass: 'Lux',
-                          //     price: 300,
-                          //     id: 1,
-                          //     bookings: 0,
-                          //   }));
-                          // }}
+                          onClick={() => {
+                          }}
                         >
                           {row.name}
                         </Button>
