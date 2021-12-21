@@ -6,14 +6,16 @@ import { DocumentScanner } from '@mui/icons-material';
 
 const Header = () => (
   <AppBar position="relative" style={{ backgroundColor: '#1565c0' }}>
-    <Link href="/" underline="none" color="white">
-      <Toolbar>
+    <Toolbar>
+      <Link href="/" underline="none" color="white">
         <DocumentScanner sx={{ mr: 2 }} />
+      </Link>
+      <Link href="/" underline="none" color="white">
         <Typography variant="h6" color="inherit" noWrap>
           Home
         </Typography>
-      </Toolbar>
-    </Link>
+      </Link>
+    </Toolbar>
   </AppBar>
 );
 
