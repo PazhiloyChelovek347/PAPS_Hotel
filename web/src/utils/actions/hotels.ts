@@ -17,3 +17,10 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const ADMIN_SUCCESS = 'ADMIN_SUCCESS';
 export const AL_SUCCESS = 'AL_SUCCESS';
 export const USER_FAILURE = 'USER_FAILURE';
+
+export const AUTH_REQUEST = 'AUTH_REQUEST';
+export const REG_REQUEST = 'REG_REQUEST';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const REG_SUCCESS = 'REG_SUCCESS';
+export const AUTH_FAILURE = 'AUTH_FAILURE';
+export const REG_FAILURE = 'REG_FAILURE';

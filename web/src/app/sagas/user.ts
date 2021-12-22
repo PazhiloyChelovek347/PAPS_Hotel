@@ -2,20 +2,31 @@ import { put, call } from 'redux-saga/effects';
 import { ResponseGenerator } from 'src/types/common';
 import { LoginData } from 'src/types/user';
 import {
-  ADMIN_SUCCESS, AL_SUCCESS, LOGIN_SUCCESS, USER_FAILURE,
+  ADMIN_SUCCESS, AL_SUCCESS, AUTH_FAILURE, AUTH_SUCCESS, LOGIN_SUCCESS, REG_FAILURE, REG_SUCCESS, USER_FAILURE,
 } from 'src/utils/actions/hotels';
 import axiosInstance from '../utils/axiosInstance';
 
 export default {
-  loginUserSaga: function* loginUserSaga(data: LoginData) {
+  authUserSaga: function* authUserSaga(data: any) {
     try {
-      const response: ResponseGenerator = yield call(axiosInstance.post, '/user/signin', { login: data.payload.login, password: data.payload.password });
+      // const response: ResponseGenerator = yield call(axiosInstance.post, '/user/signin', { login: data.payload.login, password: data.payload.password });
       // localStorage.setItem('token', response.data.token);
       // localStorage.setItem('isLoggedIn', 'true');
-      yield put({ type: 'LOGIN_SUCCESS', token: response.data.token });
+      yield put({ type: AUTH_SUCCESS, a: '1' });
     } catch (error) {
-      // localStorage.removeItem('token');
-      yield put({ type: 'LOGIN_FAILURE', error });
+      localStorage.removeItem('user');
+      yield put({ type: AUTH_FAILURE, error });
+    }
+  },
+
+  regUserSaga: function* regUserSaga(data: any) {
+    try {
+      // const response: ResponseGenerator = yield call(axiosInstance.post, '/user/signin', { login: data.payload.login, password: data.payload.password });
+      // localStorage.setItem('token', response.data.token);
+      // localStorage.setItem('isLoggedIn', 'true');
+      yield put({ type: REG_SUCCESS, a: '1' });
+    } catch (error) {
+      yield put({ type: REG_FAILURE, error });
     }
   },
 
