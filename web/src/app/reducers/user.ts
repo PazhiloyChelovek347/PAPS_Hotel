@@ -1,11 +1,12 @@
 import {
-  ADMIN_SUCCESS, AL_SUCCESS, LOGIN_SUCCESS, USER_FAILURE, USER_SET_REQUEST,
+  ADMIN_SUCCESS, AL_SUCCESS, AUTH_FAILURE, AUTH_REQUEST, LOGIN_SUCCESS, REG_FAILURE, REG_REQUEST, USER_FAILURE, USER_SET_REQUEST,
 } from 'src/utils/actions/hotels';
 import { ExtendedAction } from '../../types/action';
 
 const initialState = {
   loading: false,
   token: '',
+  user: {},
   isLogedIn: false,
   isAdmin: false,
   error: {
@@ -17,6 +18,8 @@ const initialState = {
 
 export default function reducerAuth(state = initialState, action: any) {
   switch (action.type) {
+    case AUTH_REQUEST:
+    case REG_REQUEST:
     case USER_SET_REQUEST:
       return {
         ...state,
@@ -61,6 +64,8 @@ export default function reducerAuth(state = initialState, action: any) {
           description: '',
         },
       };
+    case AUTH_FAILURE:
+    case REG_FAILURE:
     case USER_FAILURE:
       return {
         ...state,
