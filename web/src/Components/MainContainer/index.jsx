@@ -1,8 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import Header from 'src/Components/Header';
+import React, { useEffect, useState } from 'react';
 import GridWithCards from 'src/Components/DynamicGrid';
 import { useDispatch, useSelector } from 'react-redux';
-import DotLoader from 'src/Components/Loaders/DotLoader';
 import {
   Button, Card, Container, Link, Typography,
 } from '@mui/material';
@@ -21,7 +19,7 @@ function MainContainer() {
   // @ts-ignore
   const isAdmin = useSelector((state) => state.userReducer?.isAdmin);
 
-  const useStyles = makeStyles((theme) => createStyles({
+  const useStyles = makeStyles(() => createStyles({
     infoContainer: {
       display: 'flex',
       justifyContent: 'space-between',

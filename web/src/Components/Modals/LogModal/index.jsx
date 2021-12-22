@@ -1,14 +1,15 @@
 /* eslint-disable no-param-reassign */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
-  AppBar, Container, Modal, Paper, Toolbar, Typography,
+  Modal,
+  Paper,
+  Typography,
   TextField,
   Button,
 } from '@mui/material';
-import { DocumentScanner } from '@mui/icons-material';
 import { createStyles, makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles((theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   paper: {
     width: 500,
     height: 275,
