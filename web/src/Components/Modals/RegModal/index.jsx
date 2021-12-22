@@ -1,11 +1,16 @@
 /* eslint-disable no-param-reassign */
 import React, { useState } from 'react';
 import {
-  Modal, Paper, Typography,
+  Modal,
+  Paper,
+  Typography,
   TextField,
   Button,
 } from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
+import {
+  createStyles,
+  makeStyles,
+} from '@mui/styles';
 
 const useStyles = makeStyles(() => createStyles({
   paper: {

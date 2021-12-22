@@ -1,9 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import Header from 'src/Components/Header';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 import HotelTable from 'src/Components/Table';
 import { Container } from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
+import {
+  createStyles,
+  makeStyles,
+} from '@mui/styles';
 import HotelModal from 'src/Components/Modals/HotelModal';
 import ConfirmModal from 'src/Components/Modals/ConfirmModal';
 import { getHotelsRequest } from '../../app/actions/hotels';

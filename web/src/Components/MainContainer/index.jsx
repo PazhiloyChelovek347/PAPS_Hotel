@@ -1,10 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import GridWithCards from 'src/Components/DynamicGrid';
-import { useDispatch, useSelector } from 'react-redux';
 import {
-  Button, Card, Container, Link, Typography,
+  useDispatch,
+  useSelector,
+} from 'react-redux';
+import {
+  Button,
+  Card,
+  Container,
+  Link,
+  Typography,
 } from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
+import {
+  createStyles,
+  makeStyles,
+} from '@mui/styles';
 import { getHotelsRequest } from '../../app/actions/hotels';
 import RegModal from '../Modals/RegModal';
 import LogModal from '../Modals/LogModal';

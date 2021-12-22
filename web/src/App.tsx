@@ -1,5 +1,9 @@
 import React from 'react';
-import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  BrowserRouter as Router,
+} from 'react-router-dom';
 import HomePage from './Pages/HomePage';
 import MainTable from './Pages/MainTable';
 import AccPage from './Pages/AccPage';
