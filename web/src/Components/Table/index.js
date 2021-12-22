@@ -116,11 +116,14 @@ function EnhancedTableHead(props) {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
+  const isAdmin = useSelector((state) => state.userReducer?.isAdmin);
+  const isLogedIn = useSelector((state) => state.userReducer?.isLogedIn);
 
   return (
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
+          {isAdmin && (
           <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -130,6 +133,7 @@ function EnhancedTableHead(props) {
               'aria-label': 'select all desserts',
             }}
           />
+          )}
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
@@ -230,6 +234,8 @@ export default function HotelTable({ rows = [], setAllForModal }) {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const dispatch = useDispatch();
+  const isAdmin = useSelector((state) => state.userReducer?.isAdmin);
+  const isLogedIn = useSelector((state) => state.userReducer?.isLogedIn);
 
   // React.useEffect(() => {
   //   dispatch(getHotelsRequest());
@@ -325,6 +331,7 @@ export default function HotelTable({ rows = [], setAllForModal }) {
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
+                        {isAdmin && (
                         <Checkbox
                           onClick={(event) => handleClick(event, row.name)}
                           color="primary"
@@ -333,6 +340,7 @@ export default function HotelTable({ rows = [], setAllForModal }) {
                             'aria-labelledby': labelId,
                           }}
                         />
+                        )}
                       </TableCell>
                       <TableCell
                         component="th"
@@ -341,6 +349,7 @@ export default function HotelTable({ rows = [], setAllForModal }) {
                         padding="none"
                       >
                         <Button
+                          disabled={!isLogedIn && !isAdmin}
                           style={{ width: '100%' }}
                           onClick={() => {
                             setAllForModal({ open: true, toggleOpen: (prev) => setAllForModal({ ...prev, open: false }), hotel: row });

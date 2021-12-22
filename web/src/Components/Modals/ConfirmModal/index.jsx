@@ -6,7 +6,7 @@ import {
 import { DocumentScanner } from '@mui/icons-material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { useDispatch } from 'react-redux';
-import { editHotelRequest } from 'src/app/actions/hotels';
+import { delHotelRequest, editHotelRequest } from 'src/app/actions/hotels';
 
 const useStyles = makeStyles((theme) => createStyles({
   paper: {
@@ -64,7 +64,8 @@ const ConfirmModal = ({
           <Button
             onClick={() => {
               setConfirm(true);
-              dispatch(editHotelRequest(newHotel));
+              if (action === 'editing') dispatch(editHotelRequest(newHotel));
+              if (action === 'delete') dispatch(delHotelRequest(newHotel.id));
               toggleOpen();
             }}
             variant="contained"

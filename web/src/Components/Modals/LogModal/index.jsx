@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AppBar, Container, Modal, Paper, Toolbar, Typography,
   TextField,
+  Button,
 } from '@mui/material';
 import { DocumentScanner } from '@mui/icons-material';
 import { createStyles, makeStyles } from '@mui/styles';
@@ -10,7 +11,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 const useStyles = makeStyles((theme) => createStyles({
   paper: {
     width: 500,
-    height: 250,
+    height: 275,
     marginLeft: '50%',
     marginTop: '20%',
     transform: 'translate(-50%, 0)',
@@ -31,26 +32,56 @@ const useStyles = makeStyles((theme) => createStyles({
   },
 }));
 
-const LogModal = ({ open, toggleOpen }) => {
+const LogModal = ({ open, toggleOpen, toggleReg }) => {
   const classes = useStyles();
+  const [user, setUser] = useState({});
+  const handleChange = (event) => {
+    setUser({ ...user, [event.target.id]: event.target.value });
+  };
+
   return (
     <Modal
       open={open}
-      onClose={() => { open = !open; }}
+      onClose={toggleOpen}
     >
       <Paper className={classes.paper}>
-        <Typography>Registration</Typography>
+        <Typography>Login</Typography>
         <div className={classes.divWithInput}>
           <span>Login: </span>
-          <TextField variant="outlined" className={classes.textFields} />
+          <TextField
+            id="login"
+            variant="outlined"
+            className={classes.textFields}
+            onChange={handleChange}
+          />
         </div>
         <div className={classes.divWithInput}>
           <span>Password: </span>
-          <TextField variant="outlined" className={classes.textFields} />
+          <TextField
+            id="password"
+            variant="outlined"
+            className={classes.textFields}
+            onChange={handleChange}
+          />
         </div>
         <div className={classes.divWithInput}>
-          <span>FIO: </span>
-          <TextField variant="outlined" className={classes.textFields} />
+          <Button
+            variant="contained"
+            color="error"
+            onClick={toggleOpen}
+          >
+            Close
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              toggleOpen();
+              toggleReg();
+            }}
+          >
+            SignUp
+          </Button>
+          <Button variant="contained" color="success">Login</Button>
         </div>
       </Paper>
     </Modal>

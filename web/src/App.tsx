@@ -8,6 +8,8 @@ import LogModal from './Components/Modals/LogModal';
 import ConfirmModal from './Components/Modals/ConfirmModal';
 import MainTable from './Pages/MainTable';
 import { setTestData } from './utils/hardcodeLS';
+import RegModal from './Components/Modals/RegModal';
+import AccPage from './Pages/AccPage';
 
 function App() {
   // useEffect(() => {
@@ -23,9 +25,13 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          {/* <Route path="/" element={<RegModal open toggleOpen={() => {}} />} /> */}
         </Routes>
         <Routes>
           <Route path="/main" element={<MainTable />} />
+        </Routes>
+        <Routes>
+          <Route path="/account" element={<AccPage />} />
         </Routes>
       </Router>
     </>

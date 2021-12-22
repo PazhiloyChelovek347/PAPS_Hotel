@@ -32,7 +32,13 @@ const Header = () => {
           Log
           <Switch onClick={() => dispatch(userSetRequest({ isLogedIn: !isLogedIn }))} />
         </span>
-        <span style={!isLogedIn ? { visibility: 'hidden' } : {}}><Button variant="contained" color="secondary">ACCOUNT</Button></span>
+        <Link href="/account" underline="none" color="white">
+          <span style={!isLogedIn ? { visibility: 'hidden' } : {}}>
+            <Button variant="contained" color="secondary">
+              ACCOUNT
+            </Button>
+          </span>
+        </Link>
       </Toolbar>
     </AppBar>
   );

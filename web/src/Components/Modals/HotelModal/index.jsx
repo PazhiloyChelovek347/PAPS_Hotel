@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 import { DocumentScanner } from '@mui/icons-material';
 import { createStyles, makeStyles } from '@mui/styles';
+import { useSelector } from 'react-redux';
 import ConfirmModal from '../ConfirmModal';
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -48,7 +49,8 @@ const useStyles = makeStyles((theme) => createStyles({
 
 const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfirm = () => {} }) => {
   const classes = useStyles();
-  const [isAdmin, isAdminSet] = useState(true);
+  const isAdmin = useSelector((state) => state.userReducer?.isAdmin);
+  const isLogedIn = useSelector((state) => state.userReducer?.isLogedIn);
   const [newHotel, setNewHotel] = useState({});
 
   const handleChange = (event) => {
@@ -62,7 +64,7 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfi
     >
       <Paper className={classes.paper}>
         <span>
-          <Typography variant="h5" onClick={() => { isAdminSet((p) => !p); }}>
+          <Typography variant="h5">
             {`Hotel "${hotel?.name}"`}
           </Typography>
         </span>
@@ -157,7 +159,7 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfi
             Delete
           </Button>
           )}
-          {!isAdmin && (
+          {!isAdmin && isLogedIn && (
           <Button
             onClick={() => setAllConfirm((p) => ({
               ...p, open: true, action: 'booking',
