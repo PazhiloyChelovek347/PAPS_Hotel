@@ -1,9 +1,13 @@
+import {
+  ADMIN_SUCCESS, AL_SUCCESS, LOGIN_SUCCESS, USER_FAILURE, USER_SET_REQUEST,
+} from 'src/utils/actions/hotels';
 import { ExtendedAction } from '../../types/action';
 
 const initialState = {
   loading: false,
   token: '',
-  isLoggedIn: false,
+  isLogedIn: false,
+  isAdmin: false,
   error: {
     hasError: false,
     title: '',
@@ -11,9 +15,9 @@ const initialState = {
   },
 };
 
-export default function reducerAuth(state = initialState, action: ExtendedAction) {
+export default function reducerAuth(state = initialState, action: any) {
   switch (action.type) {
-    case 'LOGIN_START':
+    case USER_SET_REQUEST:
       return {
         ...state,
         loading: true,
@@ -23,19 +27,41 @@ export default function reducerAuth(state = initialState, action: ExtendedAction
           description: '',
         },
       };
-    case 'LOGIN_SUCCESS':
+    case LOGIN_SUCCESS:
       return {
         ...state,
         loading: false,
-        token: action.token,
-        isLoggedIn: true,
+        isLogedIn: action.isLogedIn,
         error: {
           hasError: false,
           title: '',
           description: '',
         },
       };
-    case 'LOGIN_FAILURE':
+    case ADMIN_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isAdmin: action.isAdmin,
+        error: {
+          hasError: false,
+          title: '',
+          description: '',
+        },
+      };
+    case AL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isAdmin: action.isAdmin,
+        isLogedIn: action.isLogedIn,
+        error: {
+          hasError: false,
+          title: '',
+          description: '',
+        },
+      };
+    case USER_FAILURE:
       return {
         ...state,
         loading: false,
@@ -44,44 +70,6 @@ export default function reducerAuth(state = initialState, action: ExtendedAction
           title: action.error.message,
           description: action.error,
         },
-      };
-    case 'SIGNUP_START':
-      return {
-        ...state,
-        loading: true,
-        error: {
-          hasError: false,
-          title: '',
-          description: '',
-        },
-      };
-    case 'SIGNUP_SUCCESS':
-      return {
-        ...state,
-        loading: false,
-        register: true,
-        token: action.token,
-        error: {
-          hasError: false,
-          title: '',
-          description: '',
-        },
-      };
-    case 'SIGNUP_FAILURE':
-      return {
-        ...state,
-        loading: false,
-        register: false,
-        error: {
-          hasError: true,
-          title: action.error.message,
-          description: action.error,
-        },
-      };
-    case 'SET_TOKEN':
-      return {
-        ...state,
-        token: action.payload.token,
       };
     default:
       return state;

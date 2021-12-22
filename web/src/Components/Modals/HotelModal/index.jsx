@@ -51,15 +51,9 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfi
   const [isAdmin, isAdminSet] = useState(true);
   const [newHotel, setNewHotel] = useState({});
 
-  useEffect(() => { console.log(newHotel); });
-
   const handleChange = (event) => {
     setNewHotel((p) => ({ ...p, [event.target.id]: event.target.value }));
   };
-
-  // useEffect(() => {
-  //   setNewHotel(hotel);
-  // });
 
   return (
     <Modal
@@ -67,7 +61,11 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfi
       onClose={() => { toggleOpen(); setNewHotel({}); }}
     >
       <Paper className={classes.paper}>
-        <span><Typography variant="h5">{`Hotel "${hotel?.name}"`}</Typography></span>
+        <span>
+          <Typography variant="h5" onClick={() => { isAdminSet((p) => !p); }}>
+            {`Hotel "${hotel?.name}"`}
+          </Typography>
+        </span>
         <div className={classes.cont}>
           {isAdmin && (
             <div className={classes.divWithInput}>
