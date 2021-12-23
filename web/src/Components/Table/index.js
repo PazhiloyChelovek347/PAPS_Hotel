@@ -16,35 +16,11 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-import { Button, Link } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  addHotelRequest, delHotelRequest, editHotelRequest, getHotelsRequest,
-} from 'src/app/actions/hotels';
-
-// let id = 0;
-// function createData(name, city, rooms, hclass, price) {
-//   id += 1;
-//   return {
-//     name,
-//     city,
-//     rooms,
-//     hclass,
-//     price,
-//     id,
-//   };
-// }
-
-// const rows = [
-//   createData('Grand Gachi hotel', 'Taganrog', 31, 'Lux', 300, id),
-//   createData('Dungeon plaza', 'Taganrog', 32, 'Lux', 300, id),
-//   createData('Hotel "Let\'s celebrate and..."', 'Rostov', 2, 'Default', 100, id),
-// ];
+import { Button } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -226,20 +202,15 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function HotelTable({ rows = [], setAllForModal }) {
+export default function HotelTable({ blockProp = false, rows = [], setAllForModal }) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('city');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const dispatch = useDispatch();
   const isAdmin = useSelector((state) => state.userReducer?.isAdmin);
   const isLogedIn = useSelector((state) => state.userReducer?.isLogedIn);
-
-  // React.useEffect(() => {
-  //   dispatch(getHotelsRequest());
-  // }, [dispatch]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -313,8 +284,6 @@ export default function HotelTable({ rows = [], setAllForModal }) {
               rowCount={rows.length}
             />
             <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                 rows.slice().sort(getComparator(order, orderBy)) */}
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
@@ -329,7 +298,7 @@ export default function HotelTable({ rows = [], setAllForModal }) {
                       tabIndex={-1}
                       key={row.name}
                       selected={isItemSelected}
-                      style={{ backgroundColor: (row.approved && '#d9ffcc') || '#ffcccc' }}
+                      style={blockProp ? { backgroundColor: (row.approved && '#d9ffcc') || '#ffcccc' } : {}}
                     >
                       <TableCell padding="checkbox">
                         {isAdmin && (
@@ -350,10 +319,14 @@ export default function HotelTable({ rows = [], setAllForModal }) {
                         padding="none"
                       >
                         <Button
-                          disabled={!isLogedIn && !isAdmin}
+                          disabled={(!isLogedIn && !isAdmin) || blockProp}
                           style={{ width: '100%' }}
                           onClick={() => {
-                            setAllForModal({ open: true, toggleOpen: (prev) => setAllForModal({ ...prev, open: false }), hotel: row });
+                            setAllForModal({
+                              open: true,
+                              toggleOpen: (prev) => setAllForModal({ ...prev, open: false }),
+                              hotel: row,
+                            });
                           }}
                         >
                           {row.name}

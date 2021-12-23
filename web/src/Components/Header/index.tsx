@@ -33,7 +33,7 @@ const Header = () => {
           <Switch checked={isLogedIn} onClick={() => dispatch(userSetRequest({ isLogedIn: !isLogedIn }))} />
         </span>
         <Link href="/account" underline="none" color="white">
-          <span style={!isLogedIn ? { visibility: 'hidden' } : {}}>
+          <span style={!isLogedIn || isAdmin ? { visibility: 'hidden' } : {}}>
             <Button variant="contained" color="secondary">
               ACCOUNT
             </Button>

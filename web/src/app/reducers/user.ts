@@ -1,7 +1,6 @@
 import {
   ADMIN_SUCCESS, AL_SUCCESS, AUTH_FAILURE, AUTH_REQUEST, AUTH_SUCCESS, LOGIN_SUCCESS, REG_FAILURE, REG_REQUEST, REG_SUCCESS, USER_FAILURE, USER_SET_REQUEST,
 } from 'src/utils/actions/hotels';
-import { ExtendedAction } from '../../types/action';
 
 const initialState = {
   loading: false,

@@ -58,7 +58,7 @@ export default {
         localStorage.setItem('Users', JSON.stringify([...users, u]));
         localStorage.setItem('isAdmin', JSON.stringify(false));
         localStorage.setItem('isLogedIn', JSON.stringify(true));
-        yield put({ type: AUTH_SUCCESS, user: u });
+        yield put({ type: REG_SUCCESS, user: u });
       }
     } catch (error) {
       localStorage.removeItem('user');

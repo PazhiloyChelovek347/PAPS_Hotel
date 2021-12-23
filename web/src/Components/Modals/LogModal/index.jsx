@@ -11,7 +11,10 @@ import {
   createStyles,
   makeStyles,
 } from '@mui/styles';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 import { authRequest } from 'src/app/actions/user';
 
 const useStyles = makeStyles(() => createStyles({

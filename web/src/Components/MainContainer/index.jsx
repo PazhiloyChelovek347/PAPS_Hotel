@@ -26,7 +26,6 @@ function MainContainer() {
   const [logOpen, setLogOpen] = useState(false);
   const [regOpen, setRegOpen] = useState(false);
   const dispatch = useDispatch();
-  // const history = ();
   // @ts-ignore
   const isLogedIn = useSelector((state) => state.userReducer?.isLogedIn);
   // @ts-ignore

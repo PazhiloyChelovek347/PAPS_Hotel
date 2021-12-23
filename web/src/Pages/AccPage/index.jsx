@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import Header from 'src/Components/Header';
-import GridWithCards from 'src/Components/DynamicGrid';
-import { useDispatch, useSelector } from 'react-redux';
-import DotLoader from 'src/Components/Loaders/DotLoader';
-import MainContainer from 'src/Components/MainContainer';
+import {
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 import HotelTable from 'src/Components/Table';
 import { Container } from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
+import {
+  createStyles,
+  makeStyles,
+} from '@mui/styles';
 import HotelModal from 'src/Components/Modals/HotelModal';
 import ConfirmModal from 'src/Components/Modals/ConfirmModal';
 import { getHotelsRequest } from '../../app/actions/hotels';
 
-const useStyles = makeStyles((theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   tableContainer: {
     marginTop: 50,
   },
@@ -21,7 +27,6 @@ function AccPage() {
   const dispatch = useDispatch();
   const hotels = useSelector((state) => state.hotelsReducer?.hotels);
   const bookings = useSelector((state) => state.userReducer?.user.bookings);
-  console.log(bookings);
   const classes = useStyles();
   const [allForModal, setAllForModal] = useState({});
   const [allConfirm, setAllConfirm] = useState({ open: false, toggleOpen: () => {} });
@@ -48,6 +53,7 @@ function AccPage() {
           setConfirm={setConfirm}
         />
         <HotelTable
+          blockProp
           rows={hotels.filter((hotel) => bookings.map((b) => b.hotel).includes(hotel.id)).map((hotel) => ({ ...hotel, approved: bookings.find((b) => b.hotel === hotel.id).approved })) || hotels}
           setAllForModal={setAllForModal}
         />

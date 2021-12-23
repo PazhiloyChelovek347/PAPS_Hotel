@@ -1,19 +1,18 @@
 import {
   HOTELS_ADD_FAILURE,
-  HOTELS_ADD_REQUEST, HOTELS_ADD_SUCCESS, HOTELS_DELETE_FAILURE, HOTELS_DELETE_REQUEST, HOTELS_DELETE_SUCCESS, HOTELS_EDIT_FAILURE, HOTELS_EDIT_REQUEST, HOTELS_EDIT_SUCCESS, HOTELS_FAILURE, HOTELS_REQUEST, HOTELS_SUCCESS,
+  HOTELS_ADD_REQUEST,
+  HOTELS_ADD_SUCCESS,
+  HOTELS_DELETE_FAILURE,
+  HOTELS_DELETE_REQUEST,
+  HOTELS_DELETE_SUCCESS,
+  HOTELS_EDIT_FAILURE,
+  HOTELS_EDIT_REQUEST,
+  HOTELS_EDIT_SUCCESS,
+  HOTELS_FAILURE,
+  HOTELS_REQUEST,
+  HOTELS_SUCCESS,
 } from 'src/utils/actions/hotels';
 import { ExtendedAction } from '../../types/action';
-
-// {
-//   title: '',
-//   alternativeTitles: [],
-//   group: '',
-//   singer: '',
-//   level: null,
-//   progress: null,
-//   tags: [],
-//   imgLink: '',
-// }
 
 const initialState = {
   loading: false,
