@@ -39,6 +39,8 @@ const ConfirmModal = ({
     action = 'this',
     setConfirm = () => {},
     newHotel = {},
+    id = null,
+    toggleHotel,
   },
 }) => {
   const classes = useStyles();
@@ -65,8 +67,11 @@ const ConfirmModal = ({
             onClick={() => {
               setConfirm(true);
               if (action === 'editing') dispatch(editHotelRequest(newHotel));
-              if (action === 'delete') dispatch(delHotelRequest(newHotel.id));
+              if (action === 'delete') {
+                dispatch(delHotelRequest(id));
+              }
               toggleOpen();
+              toggleHotel();
             }}
             variant="contained"
             color="success"

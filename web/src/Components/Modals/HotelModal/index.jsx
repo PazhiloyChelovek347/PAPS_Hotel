@@ -56,7 +56,7 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfi
   const handleChange = (event) => {
     setNewHotel((p) => ({ ...p, [event.target.id]: event.target.value }));
   };
-
+  console.log(toggleOpen);
   return (
     <Modal
       open={open}
@@ -152,7 +152,11 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfi
           )}
           {isAdmin && (
           <Button
-            onClick={() => setAllConfirm((p) => ({ ...p, open: true, action: 'delete' }))}
+            onClick={() => {
+              setAllConfirm((p) => ({
+                ...p, open: true, action: 'delete', id: hotel.id, toggleHotel: toggleOpen,
+              }));
+            }}
             variant="contained"
             color="error"
           >

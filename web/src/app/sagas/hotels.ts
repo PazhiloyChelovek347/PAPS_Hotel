@@ -11,10 +11,7 @@ import { setTestData } from 'src/utils/hardcodeLS';
 export default {
   getHotelsSaga: function* getHotelsSaga() {
     try {
-      // const response: ResponseGenerator = yield call(axiosInstance.post, '/user/signin', { login: data.payload.login, password: data.payload.password });
-      // localStorage.setItem('token', response.data.token);
-      // localStorage.setItem('isLoggedIn', 'true');
-      let hotels: string | null = null;
+      let hotels: any = null;
       if (localStorage.getItem('Hotels')) {
         // @ts-ignore
         hotels = JSON.parse(localStorage.getItem('Hotels'));
@@ -25,20 +22,17 @@ export default {
       }
       yield put({ type: HOTELS_SUCCESS, hotels });
     } catch (error) {
-      // localStorage.removeItem('token');
+      localStorage.removeItem('Hotels');
       yield put({ type: HOTELS_FAILURE, error });
     }
   },
 
   addHotelSaga: function* addHotelSaga(data: any) {
     try {
-      console.log(data);
-      // const response: ResponseGenerator = yield call(axiosInstance.post, '/user/signin', { login: data.payload.login, password: data.payload.password });
-      // localStorage.setItem('token', response.data.token);
-      // localStorage.setItem('isLoggedIn', 'true');
+      // @ts-ignore
+      localStorage.setItem('Hotels', JSON.stringify([...JSON.parse(localStorage.getItem('Hotels')), data.payload]));
       yield put({ type: HOTELS_ADD_SUCCESS, hotel: data.payload });
     } catch (error) {
-      // localStorage.removeItem('token');
       yield put({ type: HOTELS_ADD_FAILURE, error });
     }
   },
@@ -50,13 +44,10 @@ export default {
       if (hotels.find((hotel:any) => hotel.id === data.payload.id) === -1) {
         throw new Error('Hotel not found');
       }
-      // const response: ResponseGenerator = yield call(axiosInstance.post, '/user/signin', { login: data.payload.login, password: data.payload.password });
-      // localStorage.setItem('token', response.data.token);
-      // localStorage.setItem('isLoggedIn', 'true');
-      console.log(data.payload);
+      // @ts-ignore
+      localStorage.setItem('Hotels', JSON.stringify([...JSON.parse(localStorage.getItem('Hotels')).filter(((hotel:any) => hotel.id !== data.payload.id)), data.payload]));
       yield put({ type: HOTELS_EDIT_SUCCESS, hotel: data.payload });
     } catch (error) {
-      // localStorage.removeItem('token');
       yield put({ type: HOTELS_EDIT_FAILURE, error });
     }
   },
@@ -68,12 +59,10 @@ export default {
       if (hotels.find((hotel:any) => hotel.id === data.payload) === -1) {
         throw new Error('Hotel not found');
       }
-      // const response: ResponseGenerator = yield call(axiosInstance.post, '/user/signin', { login: data.payload.login, password: data.payload.password });
-      // localStorage.setItem('token', response.data.token);
-      // localStorage.setItem('isLoggedIn', 'true');
+      // @ts-ignore
+      localStorage.setItem('Hotels', JSON.stringify([...JSON.parse(localStorage.getItem('Hotels')).filter(((hotel:any) => hotel.id !== data.payload))]));
       yield put({ type: HOTELS_DELETE_SUCCESS, id: data.payload });
     } catch (error) {
-      // localStorage.removeItem('token');
       yield put({ type: HOTELS_DELETE_FAILURE, error });
     }
   },

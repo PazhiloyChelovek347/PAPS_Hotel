@@ -25,7 +25,7 @@ const initialState = {
   },
 };
 
-export default function hotelsReducer(state = initialState, action: ExtendedAction) {
+export default function hotelsReducer(state = initialState, action: any) {
   switch (action.type) {
     case HOTELS_ADD_REQUEST:
     case HOTELS_EDIT_REQUEST:
