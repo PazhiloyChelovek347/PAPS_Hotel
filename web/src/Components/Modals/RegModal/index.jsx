@@ -11,6 +11,8 @@ import {
   createStyles,
   makeStyles,
 } from '@mui/styles';
+import { useDispatch } from 'react-redux';
+import { regRequest } from 'src/app/actions/user';
 
 const useStyles = makeStyles(() => createStyles({
   paper: {
@@ -42,6 +44,7 @@ const RegModal = ({ open, toggleOpen, toggleLog }) => {
   const handleChange = (event) => {
     setUser({ ...user, [event.target.id]: event.target.value });
   };
+  const dispatch = useDispatch();
 
   return (
     <Modal
@@ -94,7 +97,20 @@ const RegModal = ({ open, toggleOpen, toggleLog }) => {
           >
             SignIn
           </Button>
-          <Button variant="contained" color="success">Confirm</Button>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => {
+              dispatch(regRequest(user));
+              if (JSON.parse(localStorage.getItem('isLogedIn'))) {
+                toggleOpen();
+              } else {
+                console.log('error');
+              }
+            }}
+          >
+            Confirm
+          </Button>
         </div>
       </Paper>
     </Modal>

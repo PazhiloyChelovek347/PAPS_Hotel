@@ -28,9 +28,9 @@ const Header = () => {
         </span>
         <span>
           Admin
-          <Switch onClick={() => dispatch(userSetRequest({ isAdmin: !isAdmin }))} />
+          <Switch checked={isAdmin} onClick={() => dispatch(userSetRequest({ isAdmin: !isAdmin }))} />
           Log
-          <Switch onClick={() => dispatch(userSetRequest({ isLogedIn: !isLogedIn }))} />
+          <Switch checked={isLogedIn} onClick={() => dispatch(userSetRequest({ isLogedIn: !isLogedIn }))} />
         </span>
         <Link href="/account" underline="none" color="white">
           <span style={!isLogedIn ? { visibility: 'hidden' } : {}}>

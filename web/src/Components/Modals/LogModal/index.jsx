@@ -11,6 +11,8 @@ import {
   createStyles,
   makeStyles,
 } from '@mui/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { authRequest } from 'src/app/actions/user';
 
 const useStyles = makeStyles(() => createStyles({
   paper: {
@@ -39,9 +41,11 @@ const useStyles = makeStyles(() => createStyles({
 const LogModal = ({ open, toggleOpen, toggleReg }) => {
   const classes = useStyles();
   const [user, setUser] = useState({});
+  const dispatch = useDispatch();
   const handleChange = (event) => {
     setUser({ ...user, [event.target.id]: event.target.value });
   };
+  const isLogedIn = useSelector((state) => state.userReducer?.isLogedIn);
 
   return (
     <Modal
@@ -85,7 +89,20 @@ const LogModal = ({ open, toggleOpen, toggleReg }) => {
           >
             SignUp
           </Button>
-          <Button variant="contained" color="success">Login</Button>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => {
+              dispatch(authRequest(user));
+              if (JSON.parse(localStorage.getItem('isLogedIn'))) {
+                toggleOpen();
+              } else {
+                console.log('error');
+              }
+            }}
+          >
+            Login
+          </Button>
         </div>
       </Paper>
     </Modal>

@@ -329,6 +329,7 @@ export default function HotelTable({ rows = [], setAllForModal }) {
                       tabIndex={-1}
                       key={row.name}
                       selected={isItemSelected}
+                      style={{ backgroundColor: (row.approved && '#d9ffcc') || '#ffcccc' }}
                     >
                       <TableCell padding="checkbox">
                         {isAdmin && (

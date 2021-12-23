@@ -20,7 +20,11 @@ const rows = [
 
 const users = [
   {
-    login: 'Admin', password: 'Admin', fio: 'Admin Adminovich Adminov', bookings: [],
+    login: 'Admin',
+    password: 'Admin',
+    fio: 'Admin Adminovich Adminov',
+    bookings: [],
+    isAdmin: true,
   },
   {
     login: 'Test',

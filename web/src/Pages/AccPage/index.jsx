@@ -20,6 +20,8 @@ const useStyles = makeStyles((theme) => createStyles({
 function AccPage() {
   const dispatch = useDispatch();
   const hotels = useSelector((state) => state.hotelsReducer?.hotels);
+  const bookings = useSelector((state) => state.userReducer?.user.bookings);
+  console.log(bookings);
   const classes = useStyles();
   const [allForModal, setAllForModal] = useState({});
   const [allConfirm, setAllConfirm] = useState({ open: false, toggleOpen: () => {} });
@@ -46,7 +48,7 @@ function AccPage() {
           setConfirm={setConfirm}
         />
         <HotelTable
-          rows={hotels}
+          rows={hotels.filter((hotel) => bookings.map((b) => b.hotel).includes(hotel.id)).map((hotel) => ({ ...hotel, approved: bookings.find((b) => b.hotel === hotel.id).approved })) || hotels}
           setAllForModal={setAllForModal}
         />
       </Container>
