@@ -16,6 +16,7 @@ export const USER_SET_REQUEST = 'USER_SET_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const ADMIN_SUCCESS = 'ADMIN_SUCCESS';
 export const AL_SUCCESS = 'AL_SUCCESS';
+export const BOOKINGS_SUCCESS = 'BOOKINGS_SUCCESS';
 export const USER_FAILURE = 'USER_FAILURE';
 
 export const AUTH_REQUEST = 'AUTH_REQUEST';

@@ -105,7 +105,7 @@ const RegModal = ({ open, toggleOpen, toggleLog }) => {
               if (JSON.parse(localStorage.getItem('isLogedIn'))) {
                 toggleOpen();
               } else {
-                console.log('error');
+                //
               }
             }}
           >

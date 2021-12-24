@@ -4,6 +4,7 @@ import {
   AL_SUCCESS,
   AUTH_FAILURE,
   AUTH_SUCCESS,
+  BOOKINGS_SUCCESS,
   LOGIN_SUCCESS,
   REG_FAILURE,
   REG_SUCCESS,
@@ -88,6 +89,12 @@ export default {
           type: AL_SUCCESS,
           isLogedIn: data.payload.isLogedIn,
           isAdmin: data.payload.isAdmin,
+        });
+      }
+      if (data.payload?.bookings !== undefined) {
+        yield put({
+          type: BOOKINGS_SUCCESS,
+          bookings: data.payload.bookings,
         });
       }
     } catch (error) {

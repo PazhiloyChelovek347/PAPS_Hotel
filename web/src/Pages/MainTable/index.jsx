@@ -15,6 +15,7 @@ import {
 } from '@mui/styles';
 import HotelModal from 'src/Components/Modals/HotelModal';
 import ConfirmModal from 'src/Components/Modals/ConfirmModal';
+import BookingsTable from 'src/Components/BookingsTable';
 import { getHotelsRequest } from '../../app/actions/hotels';
 
 const useStyles = makeStyles(() => createStyles({
@@ -26,6 +27,10 @@ const useStyles = makeStyles(() => createStyles({
 function MainTable() {
   const dispatch = useDispatch();
   const hotels = useSelector((state) => state.hotelsReducer?.hotels);
+  const bookings = useSelector((state) => state.userReducer?.bookings);
+  const bookingsArray = JSON.parse(localStorage.getItem('Users')).map((u) => u.bookings);
+  const users = JSON.parse(localStorage.getItem('Users'));
+  console.log(users);
   const classes = useStyles();
   const [allForModal, setAllForModal] = useState({});
   const [allConfirm, setAllConfirm] = useState({ open: false, toggleOpen: () => {} });
@@ -51,10 +56,19 @@ function MainTable() {
           }}
           setConfirm={setConfirm}
         />
+        {!bookings && (
         <HotelTable
           rows={hotels}
           setAllForModal={setAllForModal}
         />
+        )}
+        {bookings && (
+        <BookingsTable
+          setAllForModal={setAllForModal}
+          hotels={hotels}
+          users={users}
+        />
+        )}
       </Container>
     </>
   );

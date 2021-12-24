@@ -103,10 +103,6 @@ function MainContainer() {
             className={classes.bigBooba}
             variant="contained"
             color="primary"
-          // eslint-disable-next-line no-restricted-globals
-            onClick={() => {
-              console.log(111);
-            }}
           >
             <Typography variant="h2">
               Let&apos;s start booking!

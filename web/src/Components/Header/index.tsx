@@ -12,7 +12,9 @@ const Header = () => {
   const isLogedIn = useSelector((state) => state.userReducer?.isLogedIn);
   // @ts-ignore
   const isAdmin = useSelector((state) => state.userReducer?.isAdmin);
-  // const a = 1;
+  // @ts-ignore
+  const bookings = useSelector((state) => state.userReducer?.bookings);
+
   return (
     <AppBar position="relative" style={{ backgroundColor: '#1565c0' }}>
       <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -26,12 +28,17 @@ const Header = () => {
             </Typography>
           </Link>
         </span>
+        {isAdmin && (
         <span>
-          Admin
+          {/* Admin
           <Switch checked={isAdmin} onClick={() => dispatch(userSetRequest({ isAdmin: !isAdmin }))} />
           Log
-          <Switch checked={isLogedIn} onClick={() => dispatch(userSetRequest({ isLogedIn: !isLogedIn }))} />
+          <Switch checked={isLogedIn} onClick={() => dispatch(userSetRequest({ isLogedIn: !isLogedIn }))} /> */}
+          hotels
+          <Switch checked={bookings} onClick={() => dispatch(userSetRequest({ bookings: !bookings }))} />
+          bookings
         </span>
+        )}
         <Link href="/account" underline="none" color="white">
           <span style={!isLogedIn || isAdmin ? { visibility: 'hidden' } : {}}>
             <Button variant="contained" color="secondary">

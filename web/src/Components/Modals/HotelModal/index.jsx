@@ -56,7 +56,6 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfi
   const handleChange = (event) => {
     setNewHotel((p) => ({ ...p, [event.target.id]: event.target.value }));
   };
-  console.log(toggleOpen);
   return (
     <Modal
       open={open}

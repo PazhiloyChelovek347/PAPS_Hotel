@@ -100,7 +100,7 @@ const LogModal = ({ open, toggleOpen, toggleReg }) => {
               if (JSON.parse(localStorage.getItem('isLogedIn'))) {
                 toggleOpen();
               } else {
-                console.log('error');
+                //
               }
             }}
           >

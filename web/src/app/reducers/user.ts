@@ -1,5 +1,5 @@
 import {
-  ADMIN_SUCCESS, AL_SUCCESS, AUTH_FAILURE, AUTH_REQUEST, AUTH_SUCCESS, LOGIN_SUCCESS, REG_FAILURE, REG_REQUEST, REG_SUCCESS, USER_FAILURE, USER_SET_REQUEST,
+  ADMIN_SUCCESS, AL_SUCCESS, AUTH_FAILURE, AUTH_REQUEST, AUTH_SUCCESS, BOOKINGS_SUCCESS, LOGIN_SUCCESS, REG_FAILURE, REG_REQUEST, REG_SUCCESS, USER_FAILURE, USER_SET_REQUEST,
 } from 'src/utils/actions/hotels';
 
 const initialState = {
@@ -11,6 +11,7 @@ const initialState = {
   isLogedIn: JSON.parse(localStorage.getItem('isLogedIn')),
   // @ts-ignore
   isAdmin: JSON.parse(localStorage.getItem('isAdmin')),
+  bookings: false,
   error: {
     hasError: false,
     title: '',
@@ -86,7 +87,17 @@ export default function reducerAuth(state = initialState, action: any) {
         isLogedIn: true,
         isAdmin: action.user.isAdmin || false,
         user: action.user,
-        // isAdmin: action.isAdmin,
+        error: {
+          hasError: false,
+          title: '',
+          description: '',
+        },
+      };
+    case BOOKINGS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        bookings: action.bookings,
         error: {
           hasError: false,
           title: '',
