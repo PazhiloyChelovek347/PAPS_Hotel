@@ -219,6 +219,22 @@ export default function BookingsTable({
   const [rows, setFullRows] = React.useState([]);
 
   React.useEffect(() => {
+    let clearUsers = users.filter((u) => u?.bookings.length > 0);
+    const a = clearUsers.map((cu) => {
+      let bookingAndHotel = {};
+      cu.bookings.forEach((booking) => {
+        console.log(booking);
+        bookingAndHotel = {
+          ...(hotels.find((hotel) => { console.log(hotel.id === booking.hotel); return hotel.id === booking.hotel; })),
+          ...booking,
+        };
+      });
+      return bookingAndHotel;
+    });
+    clearUsers = [
+      ...a,
+    ];
+    console.log(111, clearUsers);
     // setFullRows([
     //   ...users
     //     .filter((u) => u?.bookings.length > 0)
