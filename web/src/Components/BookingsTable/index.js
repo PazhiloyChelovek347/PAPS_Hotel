@@ -18,9 +18,10 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { visuallyHidden } from '@mui/utils';
 import { Button } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -82,6 +83,12 @@ const headCells = [
     numeric: true,
     disablePadding: false,
     label: 'Price ($)',
+  },
+  {
+    id: 'customer',
+    numeric: true,
+    disablePadding: false,
+    label: 'Customer',
   },
 ];
 
@@ -205,9 +212,11 @@ EnhancedTableToolbar.propTypes = {
 export default function BookingsTable({
   blockProp = false,
   setAllForModal,
+  setAllConfirm,
   hotels,
   users,
 }) {
+  const dispatch = useDispatch();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('city');
   const [selected, setSelected] = React.useState([]);
@@ -217,31 +226,26 @@ export default function BookingsTable({
   const isAdmin = useSelector((state) => state.userReducer?.isAdmin);
   const isLogedIn = useSelector((state) => state.userReducer?.isLogedIn);
   const [rows, setFullRows] = React.useState(() => {
-    const bookingAndHotel = [];
+    const bookingAndHotelArray = [];
     users.filter((u) => u?.bookings.length > 0).forEach((cu) => {
       cu.bookings.forEach((booking) => {
-        bookingAndHotel.push({
+        bookingAndHotelArray.push({
           ...(hotels.find((hotel) => hotel.id === booking.hotel)),
           ...booking,
+          user: cu,
         });
       });
     });
-    return bookingAndHotel;
+    return bookingAndHotelArray;
   });
 
-  React.useEffect(() => {
-    // users.filter((u) => u?.bookings.length > 0).forEach((cu) => {
-    //   cu.bookings.forEach((booking) => {
-    //     bookingAndHotel.push({
-    //       ...(hotels.find((hotel) => hotel.id === booking.hotel)),
-    //       ...booking,
-    //     });
-    //   });
-    // });
-    // setFullRows([
-    //   bookingAndHotel,
-    // ]);
-  }, [rows, setFullRows]);
+  const handleDelete = () => {
+    setAllConfirm((p) => ({
+      ...p, open: true, action: 'booking delete', // id: hotel.id, toggleHotel: toggleOpen,
+    }));
+  };
+
+  React.useEffect(() => { }, []);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -329,7 +333,7 @@ export default function BookingsTable({
                       tabIndex={-1}
                       key={row.name}
                       selected={isItemSelected}
-                      style={blockProp ? { backgroundColor: (row.approved && '#d9ffcc') || '#ffcccc' } : {}}
+                      style={{ backgroundColor: (row.approved && '#d9ffcc') || '#ffcccc' }}
                     >
                       <TableCell padding="checkbox">
                         {isAdmin && (
@@ -367,6 +371,13 @@ export default function BookingsTable({
                       <TableCell>{row.rooms}</TableCell>
                       <TableCell>{row.hclass}</TableCell>
                       <TableCell>{row.price}</TableCell>
+                      {/* {console.log(rows)} */}
+                      <TableCell>{row.user.fio}</TableCell>
+                      <TableCell>
+                        <Button color="error" onClick={handleDelete}>
+                          <DeleteForeverIcon />
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   );
                 })}

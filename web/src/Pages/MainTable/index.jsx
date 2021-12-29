@@ -64,6 +64,7 @@ function MainTable() {
         {bookings && (
         <BookingsTable
           setAllForModal={setAllForModal}
+          setAllConfirm={setAllConfirm}
           hotels={hotels}
           users={users}
         />

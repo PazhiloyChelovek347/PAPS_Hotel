@@ -66,12 +66,18 @@ const ConfirmModal = ({
           <Button
             onClick={() => {
               setConfirm(true);
-              if (action === 'editing') dispatch(editHotelRequest(newHotel));
+              if (action === 'editing') {
+                dispatch(editHotelRequest(newHotel));
+                toggleHotel();
+              }
               if (action === 'delete') {
                 dispatch(delHotelRequest(id));
+                toggleHotel();
+              }
+              if (action === 'booking delete') {
+                // dispatch(delHotelRequest(id));
               }
               toggleOpen();
-              toggleHotel();
             }}
             variant="contained"
             color="success"

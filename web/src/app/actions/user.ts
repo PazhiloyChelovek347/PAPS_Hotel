@@ -10,5 +10,6 @@ export const getUserById = createAction('GET_USER_BY_ID_REQUEST');
 export const getUser = createAction('GET_USER_REQUEST');
 
 export const userSetRequest = createAction(USER_SET_REQUEST);
+// export const updateBookings = createAction(USER_SET_REQUEST);
 export const authRequest = createAction(AUTH_REQUEST);
 export const regRequest = createAction(REG_REQUEST);
