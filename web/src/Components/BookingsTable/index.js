@@ -216,36 +216,32 @@ export default function BookingsTable({
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const isAdmin = useSelector((state) => state.userReducer?.isAdmin);
   const isLogedIn = useSelector((state) => state.userReducer?.isLogedIn);
-  const [rows, setFullRows] = React.useState([]);
+  const [rows, setFullRows] = React.useState(() => {
+    const bookingAndHotel = [];
+    users.filter((u) => u?.bookings.length > 0).forEach((cu) => {
+      cu.bookings.forEach((booking) => {
+        bookingAndHotel.push({
+          ...(hotels.find((hotel) => hotel.id === booking.hotel)),
+          ...booking,
+        });
+      });
+    });
+    return bookingAndHotel;
+  });
 
   React.useEffect(() => {
-    let clearUsers = users.filter((u) => u?.bookings.length > 0);
-    const a = clearUsers.map((cu) => {
-      let bookingAndHotel = {};
-      cu.bookings.forEach((booking) => {
-        console.log(booking);
-        bookingAndHotel = {
-          ...(hotels.find((hotel) => { console.log(hotel.id === booking.hotel); return hotel.id === booking.hotel; })),
-          ...booking,
-        };
-      });
-      return bookingAndHotel;
-    });
-    clearUsers = [
-      ...a,
-    ];
-    console.log(111, clearUsers);
+    // users.filter((u) => u?.bookings.length > 0).forEach((cu) => {
+    //   cu.bookings.forEach((booking) => {
+    //     bookingAndHotel.push({
+    //       ...(hotels.find((hotel) => hotel.id === booking.hotel)),
+    //       ...booking,
+    //     });
+    //   });
+    // });
     // setFullRows([
-    //   ...users
-    //     .filter((u) => u?.bookings.length > 0)
-    //     .map((clearUser) => clearUser.bookings
-    //       .map((book) => ({
-    //         approved: book.approved,
-    //         ...hotels.filter((hotel) => hotel.id === book.hotel),
-    //       }))),
+    //   bookingAndHotel,
     // ]);
-    console.log(rows);
-  });
+  }, [rows, setFullRows]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';

@@ -30,7 +30,6 @@ function MainTable() {
   const bookings = useSelector((state) => state.userReducer?.bookings);
   const bookingsArray = JSON.parse(localStorage.getItem('Users')).map((u) => u.bookings);
   const users = JSON.parse(localStorage.getItem('Users'));
-  console.log(users);
   const classes = useStyles();
   const [allForModal, setAllForModal] = useState({});
   const [allConfirm, setAllConfirm] = useState({ open: false, toggleOpen: () => {} });
