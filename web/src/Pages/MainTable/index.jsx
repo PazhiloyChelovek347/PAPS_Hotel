@@ -16,7 +16,7 @@ import {
 import HotelModal from 'src/Components/Modals/HotelModal';
 import ConfirmModal from 'src/Components/Modals/ConfirmModal';
 import BookingsTable from 'src/Components/BookingsTable';
-import { getHotelsRequest } from '../../app/actions/hotels';
+import { getHotelsRequest, setBookinglRequest } from '../../app/actions/hotels';
 
 const useStyles = makeStyles(() => createStyles({
   tableContainer: {
@@ -37,6 +37,7 @@ function MainTable() {
 
   useEffect(() => {
     dispatch(getHotelsRequest());
+    dispatch(setBookinglRequest({ action: 'setup' }));
   }, [dispatch]);
 
   return (

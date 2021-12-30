@@ -1,4 +1,8 @@
 import {
+  BOOKINGS_SETUP_SUCCESS,
+  BOOKINGS_SET_FAILURE,
+  BOOKINGS_SET_REQUEST,
+  BOOKINGS_SET_SUCCESS,
   HOTELS_ADD_FAILURE,
   HOTELS_ADD_REQUEST,
   HOTELS_ADD_SUCCESS,
@@ -27,6 +31,7 @@ const initialState = {
 
 export default function hotelsReducer(state = initialState, action: any) {
   switch (action.type) {
+    case BOOKINGS_SET_REQUEST:
     case HOTELS_ADD_REQUEST:
     case HOTELS_EDIT_REQUEST:
     case HOTELS_DELETE_REQUEST:
@@ -88,6 +93,41 @@ export default function hotelsReducer(state = initialState, action: any) {
           description: '',
         },
       };
+    case BOOKINGS_SET_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: {
+          hasError: false,
+          title: '',
+          description: '',
+        },
+      };
+    case BOOKINGS_SETUP_SUCCESS:
+      return {
+        ...state,
+        usersWithBookings: (() => {
+          const bookingAndHotelArray: any[] = [];
+          JSON.parse(localStorage.getItems('Users')).filter((u:any) => u?.bookings.length > 0).forEach((cu:any) => {
+            cu.bookings.forEach((booking:any) => {
+              bookingAndHotelArray.push({
+                ...(state.hotels.find((hotel:any) => hotel.id === booking.hotel)),
+                ...booking,
+                user: cu,
+              });
+            });
+          });
+          console.log(bookingAndHotelArray);
+          return bookingAndHotelArray;
+        })(),
+        loading: false,
+        error: {
+          hasError: false,
+          title: '',
+          description: '',
+        },
+      };
+    case BOOKINGS_SET_FAILURE:
     case HOTELS_ADD_FAILURE:
     case HOTELS_EDIT_FAILURE:
     case HOTELS_DELETE_FAILURE:
@@ -101,11 +141,6 @@ export default function hotelsReducer(state = initialState, action: any) {
           description: action.error,
         },
       };
-    // case 'SET_TOKEN':
-    //   return {
-    //     ...state,
-    //     token: action.payload.token,
-    //   };
     default:
       return state;
   }

@@ -22,6 +22,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { visuallyHidden } from '@mui/utils';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { setBookinglRequest } from 'src/app/actions/hotels';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -225,27 +226,30 @@ export default function BookingsTable({
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const isAdmin = useSelector((state) => state.userReducer?.isAdmin);
   const isLogedIn = useSelector((state) => state.userReducer?.isLogedIn);
-  const [rows, setFullRows] = React.useState(() => {
-    const bookingAndHotelArray = [];
-    users.filter((u) => u?.bookings.length > 0).forEach((cu) => {
-      cu.bookings.forEach((booking) => {
-        bookingAndHotelArray.push({
-          ...(hotels.find((hotel) => hotel.id === booking.hotel)),
-          ...booking,
-          user: cu,
-        });
-      });
-    });
-    return bookingAndHotelArray;
-  });
+  // const [rows, setFullRows] = React.useState([]);
+  // const [rows, setFullRows] = React.useState(() => {
+  //   const bookingAndHotelArray = [];
+  // users.filter((u) => u?.bookings.length > 0).forEach((cu) => {
+  //   cu.bookings.forEach((booking) => {
+  //     bookingAndHotelArray.push({
+  //       ...(hotels.find((hotel) => hotel.id === booking.hotel)),
+  //       ...booking,
+  //       user: cu,
+  //     });
+  //   });
+  // });
+  //   return bookingAndHotelArray;
+  // });
 
-  const handleDelete = () => {
+  const handleDelete = (booking) => {
     setAllConfirm((p) => ({
-      ...p, open: true, action: 'booking delete', // id: hotel.id, toggleHotel: toggleOpen,
+      ...p, open: true, action: 'booking delete', booking, // id: hotel.id, toggleHotel: toggleOpen,
     }));
   };
 
-  React.useEffect(() => { }, []);
+  React.useEffect(() => {
+    console.log('UseEffect');
+  }, []);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -294,7 +298,9 @@ export default function BookingsTable({
   const handleChangeDense = (event) => {
     setDense(event.target.checked);
   };
-
+  // const hotels = useSelector((state) => state.hotelsReducer?.hotels);
+  const rows = useSelector((state) => state.hotelsReducer?.usersWithBookings);
+  console.log(rows);
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -374,7 +380,7 @@ export default function BookingsTable({
                       {/* {console.log(rows)} */}
                       <TableCell>{row.user.fio}</TableCell>
                       <TableCell>
-                        <Button color="error" onClick={handleDelete}>
+                        <Button color="error" onClick={() => handleDelete({ ...row.user, id: row.id, action: 'delete' })}>
                           <DeleteForeverIcon />
                         </Button>
                       </TableCell>

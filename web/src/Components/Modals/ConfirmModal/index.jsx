@@ -6,7 +6,7 @@ import {
 import { DocumentScanner } from '@mui/icons-material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { useDispatch } from 'react-redux';
-import { delHotelRequest, editHotelRequest } from 'src/app/actions/hotels';
+import { delHotelRequest, editHotelRequest, setBookinglRequest } from 'src/app/actions/hotels';
 
 const useStyles = makeStyles((theme) => createStyles({
   paper: {
@@ -40,6 +40,7 @@ const ConfirmModal = ({
     setConfirm = () => {},
     newHotel = {},
     id = null,
+    booking = {},
     toggleHotel,
   },
 }) => {
@@ -75,7 +76,7 @@ const ConfirmModal = ({
                 toggleHotel();
               }
               if (action === 'booking delete') {
-                // dispatch(delHotelRequest(id));
+                dispatch(setBookinglRequest({ ...booking }));
               }
               toggleOpen();
             }}
