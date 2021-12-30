@@ -247,8 +247,10 @@ export default function BookingsTable({
     }));
   };
 
+  const rows = useSelector((state) => state.hotelsReducer?.usersWithBookings);
   React.useEffect(() => {
-    console.log('UseEffect');
+    // console.log('UseEffect');
+    dispatch(setBookinglRequest({ action: 'setup' }));
   }, []);
 
   const handleRequestSort = (event, property) => {
@@ -299,7 +301,7 @@ export default function BookingsTable({
     setDense(event.target.checked);
   };
   // const hotels = useSelector((state) => state.hotelsReducer?.hotels);
-  const rows = useSelector((state) => state.hotelsReducer?.usersWithBookings);
+
   console.log(rows);
   const isSelected = (name) => selected.indexOf(name) !== -1;
 

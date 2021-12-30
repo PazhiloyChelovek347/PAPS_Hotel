@@ -20,6 +20,7 @@ import { ExtendedAction } from '../../types/action';
 
 const initialState = {
   loading: false,
+  usersWithBookings: [],
   // @ts-ignore
   hotels: JSON.parse(localStorage.getItem('Hotels')),
   error: {
