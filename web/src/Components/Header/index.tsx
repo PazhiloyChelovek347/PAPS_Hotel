@@ -1,10 +1,15 @@
 import React from 'react';
 import {
-  AppBar, Button, Link, Switch, Toolbar, Typography,
+  AppBar,
+  Button,
+  Link,
+  Switch,
+  Toolbar,
+  Typography,
 } from '@mui/material';
 import { DocumentScanner } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
-import { userSetRequest } from 'src/app/actions/user';
+import { logoutRequest, userSetRequest } from 'src/app/actions/user';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -29,23 +34,44 @@ const Header = () => {
           </Link>
         </span>
         {isAdmin && (
-        <span>
-          {/* Admin
+          <span>
+            {/* Admin
           <Switch checked={isAdmin} onClick={() => dispatch(userSetRequest({ isAdmin: !isAdmin }))} />
           Log
           <Switch checked={isLogedIn} onClick={() => dispatch(userSetRequest({ isLogedIn: !isLogedIn }))} /> */}
-          hotels
-          <Switch checked={bookings} onClick={() => dispatch(userSetRequest({ bookings: !bookings }))} />
-          bookings
-        </span>
-        )}
-        <Link href="/account" underline="none" color="white">
-          <span style={!isLogedIn || isAdmin ? { visibility: 'hidden' } : {}}>
-            <Button variant="contained" color="secondary">
-              ACCOUNT
-            </Button>
+            hotels
+            <Switch
+              checked={bookings}
+              onClick={() => dispatch(userSetRequest({ bookings: !bookings }))}
+            />
+            bookings
           </span>
-        </Link>
+        )}
+        <span>
+          {isLogedIn && (
+            <Link href="/account" underline="none" color="white">
+              <span
+                style={!isLogedIn || isAdmin ? { visibility: 'hidden' } : {}}
+              >
+                <Button variant="contained" color="secondary">
+                  ACCOUNT
+                </Button>
+              </span>
+            </Link>
+          )}
+          {isLogedIn && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                dispatch(logoutRequest());
+              }}
+            >
+              Logout
+            </Button>
+          )}
+          {!isLogedIn && <Button>Login</Button>}
+        </span>
       </Toolbar>
     </AppBar>
   );

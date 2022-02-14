@@ -1,12 +1,22 @@
 /* eslint-disable no-param-reassign */
 import React, { useState } from 'react';
 import {
-  AppBar, Button, Container, Modal, Paper, Toolbar, Typography,
+  AppBar,
+  Button,
+  Container,
+  Modal,
+  Paper,
+  Toolbar,
+  Typography,
 } from '@mui/material';
 import { DocumentScanner } from '@mui/icons-material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { useDispatch } from 'react-redux';
-import { delHotelRequest, editHotelRequest, setBookinglRequest } from 'src/app/actions/hotels';
+import {
+  delHotelRequest,
+  editHotelRequest,
+  setBookingRequest,
+} from 'src/app/actions/hotels';
 
 const useStyles = makeStyles((theme) => createStyles({
   paper: {
@@ -47,10 +57,7 @@ const ConfirmModal = ({
   const classes = useStyles();
   const dispatch = useDispatch();
   return (
-    <Modal
-      open={open}
-      onClose={toggleOpen}
-    >
+    <Modal open={open} onClose={toggleOpen}>
       <Paper className={classes.paper}>
         <Typography variant="h5">{`Are you sure about ${action}`}</Typography>
         <div className={classes.divWithInput}>
@@ -76,7 +83,10 @@ const ConfirmModal = ({
                 toggleHotel();
               }
               if (action === 'booking delete') {
-                dispatch(setBookinglRequest({ ...booking }));
+                dispatch(setBookingRequest({ ...booking }));
+              }
+              if (action === 'booking') {
+                dispatch(setBookingRequest({ ...booking }));
               }
               toggleOpen();
             }}

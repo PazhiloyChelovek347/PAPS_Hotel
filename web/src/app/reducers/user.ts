@@ -1,5 +1,19 @@
 import {
-  ADMIN_SUCCESS, AL_SUCCESS, AUTH_FAILURE, AUTH_REQUEST, AUTH_SUCCESS, BOOKINGS_SUCCESS, LOGIN_SUCCESS, REG_FAILURE, REG_REQUEST, REG_SUCCESS, USER_FAILURE, USER_SET_REQUEST,
+  ADMIN_SUCCESS,
+  AL_SUCCESS,
+  AUTH_FAILURE,
+  AUTH_REQUEST,
+  AUTH_SUCCESS,
+  BOOKINGS_SUCCESS,
+  LOGIN_SUCCESS,
+  REG_FAILURE,
+  REG_REQUEST,
+  REG_SUCCESS,
+  USER_FAILURE,
+  USER_SET_REQUEST,
+  LOGOUT_REQUEST,
+  LOGOUT_FAILURE,
+  LOGOUT_SUCCESS,
 } from 'src/utils/actions/hotels';
 
 const initialState = {
@@ -24,6 +38,7 @@ export default function reducerAuth(state = initialState, action: any) {
     case AUTH_REQUEST:
     case REG_REQUEST:
     case USER_SET_REQUEST:
+    case LOGOUT_REQUEST:
       return {
         ...state,
         loading: true,
@@ -104,9 +119,22 @@ export default function reducerAuth(state = initialState, action: any) {
           description: '',
         },
       };
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isLogedIn: false,
+        isAdmin: false,
+        error: {
+          hasError: false,
+          title: '',
+          description: '',
+        },
+      };
     case AUTH_FAILURE:
     case REG_FAILURE:
     case USER_FAILURE:
+    case LOGOUT_FAILURE:
       return {
         ...state,
         loading: false,

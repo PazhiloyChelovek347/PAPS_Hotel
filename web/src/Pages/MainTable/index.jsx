@@ -1,22 +1,13 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from 'src/Components/Header';
-import {
-  useDispatch,
-  useSelector,
-} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import HotelTable from 'src/Components/Table';
 import { Container } from '@mui/material';
-import {
-  createStyles,
-  makeStyles,
-} from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 import HotelModal from 'src/Components/Modals/HotelModal';
 import ConfirmModal from 'src/Components/Modals/ConfirmModal';
 import BookingsTable from 'src/Components/BookingsTable';
-import { getHotelsRequest, setBookinglRequest } from '../../app/actions/hotels';
+import { getHotelsRequest, setBookingRequest } from '../../app/actions/hotels';
 
 const useStyles = makeStyles(() => createStyles({
   tableContainer: {
@@ -28,16 +19,21 @@ function MainTable() {
   const dispatch = useDispatch();
   const hotels = useSelector((state) => state.hotelsReducer?.hotels);
   const bookings = useSelector((state) => state.userReducer?.bookings);
-  const bookingsArray = JSON.parse(localStorage.getItem('Users')).map((u) => u.bookings);
+  const bookingsArray = JSON.parse(localStorage.getItem('Users')).map(
+    (u) => u.bookings,
+  );
   const users = JSON.parse(localStorage.getItem('Users'));
   const classes = useStyles();
   const [allForModal, setAllForModal] = useState({});
-  const [allConfirm, setAllConfirm] = useState({ open: false, toggleOpen: () => {} });
+  const [allConfirm, setAllConfirm] = useState({
+    open: false,
+    toggleOpen: () => {},
+  });
   const [confirm, setConfirm] = React.useState(false);
 
   useEffect(() => {
     dispatch(getHotelsRequest());
-    dispatch(setBookinglRequest({ action: 'setup' }));
+    dispatch(setBookingRequest({ action: 'setup' }));
   }, [dispatch]);
 
   return (
@@ -57,18 +53,15 @@ function MainTable() {
           setConfirm={setConfirm}
         />
         {!bookings && (
-        <HotelTable
-          rows={hotels}
-          setAllForModal={setAllForModal}
-        />
+          <HotelTable rows={hotels} setAllForModal={setAllForModal} />
         )}
         {bookings && (
-        <BookingsTable
-          setAllForModal={setAllForModal}
-          setAllConfirm={setAllConfirm}
-          hotels={hotels}
-          users={users}
-        />
+          <BookingsTable
+            setAllForModal={setAllForModal}
+            setAllConfirm={setAllConfirm}
+            hotels={hotels}
+            users={users}
+          />
         )}
       </Container>
     </>

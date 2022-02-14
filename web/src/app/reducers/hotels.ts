@@ -63,7 +63,10 @@ export default function hotelsReducer(state = initialState, action: any) {
         ...state,
         loading: false,
         // @ts-ignore
-        hotels: [...state.hotels.filter((hotel) => hotel.id !== action.hotel.id), action.hotel],
+        hotels: [
+          ...state.hotels.filter((hotel: any) => hotel.id !== action.hotel.id),
+          action.hotel,
+        ],
         error: {
           hasError: false,
           title: '',
@@ -109,15 +112,20 @@ export default function hotelsReducer(state = initialState, action: any) {
         ...state,
         usersWithBookings: (() => {
           const bookingAndHotelArray: any[] = [];
-          JSON.parse(localStorage.getItems('Users')).filter((u:any) => u?.bookings.length > 0).forEach((cu:any) => {
-            cu.bookings.forEach((booking:any) => {
-              bookingAndHotelArray.push({
-                ...(state.hotels.find((hotel:any) => hotel.id === booking.hotel)),
-                ...booking,
-                user: cu,
+          // @ts-ignore
+          JSON.parse(localStorage.getItem('Users'))
+            .filter((u: any) => u?.bookings.length > 0)
+            .forEach((cu: any) => {
+              cu.bookings.forEach((booking: any) => {
+                bookingAndHotelArray.push({
+                  ...state.hotels.find(
+                    (hotel: any) => hotel.id === booking.hotel,
+                  ),
+                  ...booking,
+                  user: cu,
+                });
               });
             });
-          });
           console.log(bookingAndHotelArray);
           return bookingAndHotelArray;
         })(),

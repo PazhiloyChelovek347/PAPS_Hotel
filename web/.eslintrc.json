@@ -40,7 +40,8 @@
       "import/prefer-default-export": "off",
       "max-len": "off",
       "react/prop-types": "warn",
-      "react/no-unused-prop-types": "warn"
+      "react/no-unused-prop-types": "warn",
+      "operator-linebreak": "off"
       // "@typescript-eslint/no-use-before-define": ["error"]
     }
 }

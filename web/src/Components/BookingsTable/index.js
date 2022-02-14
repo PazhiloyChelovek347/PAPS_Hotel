@@ -22,7 +22,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { visuallyHidden } from '@mui/utils';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBookinglRequest } from 'src/app/actions/hotels';
+import { setBookingRequest } from 'src/app/actions/hotels';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -95,7 +95,12 @@ const headCells = [
 
 function EnhancedTableHead(props) {
   const {
-    onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort,
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
   } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -108,15 +113,15 @@ function EnhancedTableHead(props) {
       <TableRow>
         <TableCell padding="checkbox">
           {isAdmin && (
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          />
+            <Checkbox
+              color="primary"
+              indeterminate={numSelected > 0 && numSelected < rowCount}
+              checked={rowCount > 0 && numSelected === rowCount}
+              onChange={onSelectAllClick}
+              inputProps={{
+                'aria-label': 'select all desserts',
+              }}
+            />
           )}
         </TableCell>
         {headCells.map((headCell) => (
@@ -163,7 +168,10 @@ const EnhancedTableToolbar = (props) => {
         pl: { sm: 2 },
         pr: { xs: 1, sm: 1 },
         ...(numSelected > 0 && {
-          bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+          bgcolor: (theme) => alpha(
+            theme.palette.primary.main,
+            theme.palette.action.activatedOpacity,
+          ),
         }),
       }}
     >
@@ -243,14 +251,17 @@ export default function BookingsTable({
 
   const handleDelete = (booking) => {
     setAllConfirm((p) => ({
-      ...p, open: true, action: 'booking delete', booking, // id: hotel.id, toggleHotel: toggleOpen,
+      ...p,
+      open: true,
+      action: 'booking delete',
+      booking, // id: hotel.id, toggleHotel: toggleOpen,
     }));
   };
 
   const rows = useSelector((state) => state.hotelsReducer?.usersWithBookings);
   React.useEffect(() => {
     // console.log('UseEffect');
-    dispatch(setBookinglRequest({ action: 'setup' }));
+    dispatch(setBookingRequest({ action: 'setup' }));
   }, []);
 
   const handleRequestSort = (event, property) => {
@@ -306,7 +317,8 @@ export default function BookingsTable({
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -341,18 +353,21 @@ export default function BookingsTable({
                       tabIndex={-1}
                       key={row.name}
                       selected={isItemSelected}
-                      style={{ backgroundColor: (row.approved && '#d9ffcc') || '#ffcccc' }}
+                      style={{
+                        backgroundColor:
+                          (row.approved && '#d9ffcc') || '#ffcccc',
+                      }}
                     >
                       <TableCell padding="checkbox">
                         {isAdmin && (
-                        <Checkbox
-                          onClick={(event) => handleClick(event, row.name)}
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            'aria-labelledby': labelId,
-                          }}
-                        />
+                          <Checkbox
+                            onClick={(event) => handleClick(event, row.name)}
+                            color="primary"
+                            checked={isItemSelected}
+                            inputProps={{
+                              'aria-labelledby': labelId,
+                            }}
+                          />
                         )}
                       </TableCell>
                       <TableCell
@@ -382,7 +397,14 @@ export default function BookingsTable({
                       {/* {console.log(rows)} */}
                       <TableCell>{row.user.fio}</TableCell>
                       <TableCell>
-                        <Button color="error" onClick={() => handleDelete({ ...row.user, id: row.id, action: 'delete' })}>
+                        <Button
+                          color="error"
+                          onClick={() => handleDelete({
+                            ...row.user,
+                            id: row.id,
+                            action: 'delete',
+                          })}
+                        >
                           <DeleteForeverIcon />
                         </Button>
                       </TableCell>

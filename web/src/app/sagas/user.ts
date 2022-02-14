@@ -6,6 +6,8 @@ import {
   AUTH_SUCCESS,
   BOOKINGS_SUCCESS,
   LOGIN_SUCCESS,
+  LOGOUT_FAILURE,
+  LOGOUT_SUCCESS,
   REG_FAILURE,
   REG_SUCCESS,
   USER_FAILURE,
@@ -17,13 +19,21 @@ export default {
       // @ts-ignore
       const users = JSON.parse(localStorage.getItem('Users'));
       const fullUser = users.find((u: any) => {
-        if (data.payload.login === u.login && data.payload.password === u.password) { return true; }
+        if (
+          data.payload.login === u.login &&
+          data.payload.password === u.password
+        ) {
+          return true;
+        }
         return false;
       });
 
       if (fullUser) {
         localStorage.setItem('user', JSON.stringify(fullUser));
-        localStorage.setItem('isAdmin', JSON.stringify(fullUser.isAdmin || false));
+        localStorage.setItem(
+          'isAdmin',
+          JSON.stringify(fullUser.isAdmin || false),
+        );
         localStorage.setItem('isLogedIn', JSON.stringify(true));
         yield put({ type: AUTH_SUCCESS, user: fullUser });
       } else {
@@ -42,7 +52,9 @@ export default {
       // @ts-ignore
       const users = JSON.parse(localStorage.getItem('Users'));
       const fullUser = users.find((u: any) => {
-        if (data.payload.login === u.login) { return true; }
+        if (data.payload.login === u.login) {
+          return true;
+        }
         return false;
       });
 
@@ -69,7 +81,7 @@ export default {
     }
   },
 
-  setAdminAndLoginSaga: function* setAdminAndLoginSaga(data:any) {
+  setAdminAndLoginSaga: function* setAdminAndLoginSaga(data: any) {
     try {
       if (data.payload?.isAdmin !== undefined) {
         yield put({
@@ -83,8 +95,10 @@ export default {
           isLogedIn: data.payload.isLogedIn,
         });
       }
-      if (data.payload?.isLogedIn !== undefined
-         && data.payload?.isAdmin !== undefined) {
+      if (
+        data.payload?.isLogedIn !== undefined &&
+        data.payload?.isAdmin !== undefined
+      ) {
         yield put({
           type: AL_SUCCESS,
           isLogedIn: data.payload.isLogedIn,
@@ -99,6 +113,17 @@ export default {
       }
     } catch (error) {
       yield put({ type: USER_FAILURE, error });
+    }
+  },
+
+  logoutSaga: function* setLogoutSaga() {
+    try {
+      localStorage.removeItem('user');
+      localStorage.setItem('isAdmin', JSON.stringify(false));
+      localStorage.setItem('isLogedIn', JSON.stringify(false));
+      yield put({ type: LOGOUT_SUCCESS });
+    } catch (error) {
+      yield put({ type: LOGOUT_FAILURE, error });
     }
   },
 };
