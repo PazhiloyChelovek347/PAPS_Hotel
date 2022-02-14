@@ -52,6 +52,7 @@ const ConfirmModal = ({
     id = null,
     booking = {},
     toggleHotel,
+    user,
   },
 }) => {
   const classes = useStyles();
@@ -86,7 +87,7 @@ const ConfirmModal = ({
                 dispatch(setBookingRequest({ ...booking }));
               }
               if (action === 'booking') {
-                dispatch(setBookingRequest({ ...booking }));
+                dispatch(setBookingRequest({ id, user }));
               }
               toggleOpen();
             }}

@@ -394,8 +394,13 @@ export default function BookingsTable({
                       <TableCell>{row.rooms}</TableCell>
                       <TableCell>{row.hclass}</TableCell>
                       <TableCell>{row.price}</TableCell>
-                      {/* {console.log(rows)} */}
                       <TableCell>{row.user.fio}</TableCell>
+                      {isAdmin && row.approved !== false && row.approved !== true && (
+                        <TableCell>
+                          <Button color="success">Accept</Button>
+                          <Button color="error">Decline</Button>
+                        </TableCell>
+                      )}
                       <TableCell>
                         <Button
                           color="error"

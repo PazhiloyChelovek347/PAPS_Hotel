@@ -73,7 +73,7 @@ export default {
     try {
       // @ts-ignore
       const users = JSON.parse(localStorage.getItem('Users'));
-
+      console.log(3333, data);
       switch (data.payload.action) {
         case 'delete':
           if (!users.find((u: any) => u.bookings.find((b: any) => b.hotel === data.payload.id))) {

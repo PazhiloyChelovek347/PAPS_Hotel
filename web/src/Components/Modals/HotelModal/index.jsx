@@ -164,9 +164,11 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfi
           )}
           {!isAdmin && isLogedIn && (
           <Button
-            onClick={() => setAllConfirm((p) => ({
-              ...p, open: true, action: 'booking',
-            }))}
+            onClick={() => {
+              setAllConfirm((p) => ({
+                ...p, open: true, action: 'booking', id: hotel.id, user: JSON.parse(localStorage.getItem('user')),
+              }));
+            }}
             variant="contained"
           >
             Book

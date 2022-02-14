@@ -336,6 +336,11 @@ export default function HotelTable({ blockProp = false, rows = [], setAllForModa
                       <TableCell>{row.rooms}</TableCell>
                       <TableCell>{row.hclass}</TableCell>
                       <TableCell>{row.price}</TableCell>
+                      {/* {isAdmin && ( */}
+                      {/*  <TableCell> */}
+                      {/*    <Button>Check bookings</Button> */}
+                      {/*  </TableCell> */}
+                      {/* )} */}
                     </TableRow>
                   );
                 })}
