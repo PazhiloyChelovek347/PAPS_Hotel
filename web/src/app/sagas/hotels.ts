@@ -86,7 +86,8 @@ export default {
           localStorage.setItem('Users', JSON.stringify(users.map((u: any) => ({ ...u, bookings: u.bookings.filter((b: any) => b.hotel !== data.payload.id) }))));
           break;
         case 'setup':
-          yield put({ type: BOOKINGS_SETUP_SUCCESS, users });
+          // const usersWithoutChanges = users.filter((user) => {});
+          // yield put({ type: BOOKINGS_SETUP_SUCCESS, users });
           break;
         default:
           break;
