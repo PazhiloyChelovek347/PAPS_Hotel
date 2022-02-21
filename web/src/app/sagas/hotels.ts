@@ -5,7 +5,15 @@ import { ResponseGenerator } from 'src/types/common';
 import {
   BOOKINGS_SETUP_SUCCESS,
   BOOKINGS_SET_FAILURE,
-  HOTELS_ADD_FAILURE, HOTELS_ADD_SUCCESS, HOTELS_DELETE_FAILURE, HOTELS_DELETE_SUCCESS, HOTELS_EDIT_FAILURE, HOTELS_EDIT_SUCCESS, HOTELS_FAILURE, HOTELS_SUCCESS,
+  HOTELS_ADD_FAILURE,
+  HOTELS_ADD_SUCCESS,
+  HOTELS_DELETE_FAILURE,
+  HOTELS_DELETE_SUCCESS,
+  HOTELS_EDIT_FAILURE,
+  HOTELS_EDIT_SUCCESS,
+  HOTELS_FAILURE,
+  HOTELS_SUCCESS,
+  BOOKINGS_SET_SUCCESS,
 } from 'src/utils/actions/hotels';
 import { setTestData } from 'src/utils/hardcodeLS';
 // import axiosInstance from '../utils/axiosInstance';
@@ -73,7 +81,9 @@ export default {
     try {
       // @ts-ignore
       const users = JSON.parse(localStorage.getItem('Users'));
-      console.log(3333, data);
+      let usersWithoutChanges;
+      let newUser;
+      let temp;
       switch (data.payload.action) {
         case 'delete':
           if (!users.find((u: any) => u.bookings.find((b: any) => b.hotel === data.payload.id))) {
@@ -83,11 +93,19 @@ export default {
             // })));
             throw new Error('User with booking not found');
           }
-          localStorage.setItem('Users', JSON.stringify(users.map((u: any) => ({ ...u, bookings: u.bookings.filter((b: any) => b.hotel !== data.payload.id) }))));
+          temp = users.map((u: any) => ({ ...u, bookings: u.bookings.filter((b: any) => b.hotel !== data.payload.id) }));
+          localStorage.setItem('Users', JSON.stringify(temp));
+          yield put({ type: BOOKINGS_SETUP_SUCCESS, users: temp });
           break;
         case 'setup':
-          // const usersWithoutChanges = users.filter((user) => {});
-          // yield put({ type: BOOKINGS_SETUP_SUCCESS, users });
+          usersWithoutChanges = users.filter((user: any) => user.login !== data.payload.user.login && user.fio !== data.payload.user.fio);
+          newUser = { ...data.payload.user, bookings: [...data.payload.user.bookings, { hotel: data.payload.id, approved: false }] };
+          localStorage.setItem('Users', JSON.stringify([...usersWithoutChanges, newUser]));
+          localStorage.setItem('user', JSON.stringify(newUser));
+          yield put({ type: BOOKINGS_SET_SUCCESS, users: [...usersWithoutChanges, newUser], newUser });
+          break;
+        case 'forTable':
+          yield put({ type: BOOKINGS_SETUP_SUCCESS, users });
           break;
         default:
           break;

@@ -100,6 +100,8 @@ export default function hotelsReducer(state = initialState, action: any) {
     case BOOKINGS_SET_SUCCESS:
       return {
         ...state,
+        Users: action.users,
+        user: action.newUser,
         loading: false,
         error: {
           hasError: false,

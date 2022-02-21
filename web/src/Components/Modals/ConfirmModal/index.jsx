@@ -87,7 +87,7 @@ const ConfirmModal = ({
                 dispatch(setBookingRequest({ ...booking }));
               }
               if (action === 'booking') {
-                dispatch(setBookingRequest({ id, user, action }));
+                dispatch(setBookingRequest({ id, user, action: 'setup' }));
               }
               toggleOpen();
             }}

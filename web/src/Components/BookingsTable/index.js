@@ -237,15 +237,15 @@ export default function BookingsTable({
   // const [rows, setFullRows] = React.useState([]);
   // const [rows, setFullRows] = React.useState(() => {
   //   const bookingAndHotelArray = [];
-  // users.filter((u) => u?.bookings.length > 0).forEach((cu) => {
-  //   cu.bookings.forEach((booking) => {
-  //     bookingAndHotelArray.push({
-  //       ...(hotels.find((hotel) => hotel.id === booking.hotel)),
-  //       ...booking,
-  //       user: cu,
+  //   users.filter((u) => u?.bookings.length > 0).forEach((cu) => {
+  //     cu.bookings.forEach((booking) => {
+  //       bookingAndHotelArray.push({
+  //         ...(hotels.find((hotel) => hotel.id === booking.hotel)),
+  //         ...booking,
+  //         user: cu,
+  //       });
   //     });
   //   });
-  // });
   //   return bookingAndHotelArray;
   // });
 
@@ -261,7 +261,7 @@ export default function BookingsTable({
   const rows = useSelector((state) => state.hotelsReducer?.usersWithBookings);
   React.useEffect(() => {
     // console.log('UseEffect');
-    dispatch(setBookingRequest({ action: 'setup' }));
+    dispatch(setBookingRequest({ action: 'forTable' }));
   }, []);
 
   const handleRequestSort = (event, property) => {
@@ -313,7 +313,6 @@ export default function BookingsTable({
   };
   // const hotels = useSelector((state) => state.hotelsReducer?.hotels);
 
-  console.log(rows);
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -322,6 +321,7 @@ export default function BookingsTable({
 
   return (
     <Box sx={{ width: '100%' }}>
+      {console.log()}
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
