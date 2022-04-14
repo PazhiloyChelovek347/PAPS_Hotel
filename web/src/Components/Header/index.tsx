@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   AppBar,
   Button,
@@ -10,6 +10,7 @@ import {
 import { DocumentScanner } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutRequest, userSetRequest } from 'src/app/actions/user';
+import { setHotelModal } from 'src/app/actions/hotels';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,8 @@ const Header = () => {
   const isAdmin = useSelector((state) => state.userReducer?.isAdmin);
   // @ts-ignore
   const bookings = useSelector((state) => state.userReducer?.bookings);
+  // @ts-ignore
+  const hotelModalData = useSelector((state) => state.hotelsReducer?.hotelModalData);
 
   return (
     <AppBar position="relative" style={{ backgroundColor: '#1565c0' }}>
@@ -34,25 +37,26 @@ const Header = () => {
           </Link>
         </span>
         {isAdmin && (
-          <span>
-            {/* Admin
-          <Switch checked={isAdmin} onClick={() => dispatch(userSetRequest({ isAdmin: !isAdmin }))} />
-          Log
-          <Switch checked={isLogedIn} onClick={() => dispatch(userSetRequest({ isLogedIn: !isLogedIn }))} /> */}
-            hotels
-            <Switch
-              checked={bookings}
-              onClick={() => dispatch(userSetRequest({ bookings: !bookings }))}
-            />
-            bookings
-          </span>
+          <div style={{ width: 350, display: 'flex', justifyContent: 'space-between' }}>
+            <span>
+              hotels
+              <Switch
+                checked={bookings}
+                onClick={() => dispatch(userSetRequest({ bookings: !bookings }))}
+              />
+              bookings
+            </span>
+            {!bookings && (
+              <Button variant="contained" color="success" onClick={() => { dispatch(setHotelModal({ open: !hotelModalData.open })); }}>
+                Add hotel
+              </Button>
+            )}
+          </div>
         )}
         <span>
-          {isLogedIn && (
+          {(isLogedIn && !isAdmin) && (
             <Link href="/account" underline="none" color="white">
-              <span
-                style={!isLogedIn || isAdmin ? { visibility: 'hidden' } : {}}
-              >
+              <span>
                 <Button variant="contained" color="secondary">
                   ACCOUNT
                 </Button>
@@ -70,7 +74,6 @@ const Header = () => {
               Logout
             </Button>
           )}
-          {!isLogedIn && <Button>Login</Button>}
         </span>
       </Toolbar>
     </AppBar>

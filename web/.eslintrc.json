@@ -41,7 +41,8 @@
       "max-len": "off",
       "react/prop-types": "warn",
       "react/no-unused-prop-types": "warn",
-      "operator-linebreak": "off"
+      "operator-linebreak": "off",
+      "linebreak-style": "off"
       // "@typescript-eslint/no-use-before-define": ["error"]
     }
 }

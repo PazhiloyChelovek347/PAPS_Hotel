@@ -5,6 +5,7 @@ import {
   HOTELS_EDIT_REQUEST,
   HOTELS_DELETE_REQUEST,
   BOOKINGS_SET_REQUEST,
+  SET_HOTEL_MODAL,
 } from 'src/utils/actions/hotels';
 
 export const getHotelsRequest = createAction(HOTELS_REQUEST);
@@ -13,10 +14,13 @@ export const editHotelRequest = createAction(HOTELS_EDIT_REQUEST);
 export const delHotelRequest = createAction(HOTELS_DELETE_REQUEST);
 export const setBookingRequest = createAction(BOOKINGS_SET_REQUEST);
 
+export const setHotelModal = createAction(SET_HOTEL_MODAL);
+
 export default {
   getHotelsRequest,
   addHotelRequest,
   editHotelRequest,
   delHotelRequest,
   setBookingRequest,
+  setHotelModal,
 };

@@ -15,6 +15,7 @@ import {
   HOTELS_FAILURE,
   HOTELS_REQUEST,
   HOTELS_SUCCESS,
+  SET_HOTEL_MODAL,
 } from 'src/utils/actions/hotels';
 import { ExtendedAction } from '../../types/action';
 
@@ -23,6 +24,9 @@ const initialState = {
   usersWithBookings: [],
   // @ts-ignore
   hotels: JSON.parse(localStorage.getItem('Hotels')),
+  hotelModalData: {
+    open: false,
+  },
   error: {
     hasError: false,
     title: '',
@@ -85,6 +89,20 @@ export default function hotelsReducer(state = initialState, action: any) {
           description: '',
         },
       };
+    case SET_HOTEL_MODAL:
+      return {
+        ...state,
+        loading: false,
+        // @ts-ignore
+        hotelModalData: {
+          ...action.payload,
+        },
+        error: {
+          hasError: false,
+          title: '',
+          description: '',
+        },
+      };
     case HOTELS_SUCCESS:
       return {
         ...state,
@@ -128,7 +146,6 @@ export default function hotelsReducer(state = initialState, action: any) {
                 });
               });
             });
-          console.log(bookingAndHotelArray);
           return bookingAndHotelArray;
         })(),
         loading: false,

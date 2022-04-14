@@ -97,25 +97,25 @@ function MainContainer() {
         </div>
       </Container>
       <Container>
-        { isLogedIn && (
-        <Link href="main">
-          <Button
-            className={classes.bigBooba}
-            variant="contained"
-            color="primary"
-          >
-            <Typography variant="h2">
-              Let&apos;s start booking!
-            </Typography>
-          </Button>
-        </Link>
+        {isLogedIn && (
+          <Link href="main">
+            <Button
+              className={classes.bigBooba}
+              variant="contained"
+              color="primary"
+            >
+              <Typography variant="h2">
+                Let&apos;s start booking!
+              </Typography>
+            </Button>
+          </Link>
         )}
-        { !isLogedIn && (
+        {!isLogedIn && (
           <Button
             className={classes.bigBooba}
             variant="contained"
             color="primary"
-          // eslint-disable-next-line no-restricted-globals
+            // eslint-disable-next-line no-restricted-globals
             onClick={() => {
               setRegOpen((p) => !p);
             }}
