@@ -298,7 +298,10 @@ export default function HotelTable({ blockProp = false, rows = [], setAllForModa
                       tabIndex={-1}
                       key={row.name}
                       selected={isItemSelected}
-                      style={blockProp ? { backgroundColor: (row.approved && '#d9ffcc') || '#ffcccc' } : {}}
+                      style={row.approved === null ? {} : {
+                        backgroundColor:
+                          (row.approved && '#d9ffcc') || (row.approved === false && '#ffcccc'),
+                      }}
                     >
                       <TableCell padding="checkbox">
                         {isAdmin && (

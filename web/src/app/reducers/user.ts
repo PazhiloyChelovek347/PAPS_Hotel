@@ -14,6 +14,8 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_FAILURE,
   LOGOUT_SUCCESS,
+  SET_APPROVE_FAILURE,
+  SET_APPROVE_SUCCESS,
 } from 'src/utils/actions/hotels';
 
 const initialState = {
@@ -131,10 +133,24 @@ export default function reducerAuth(state = initialState, action: any) {
           description: '',
         },
       };
+    case SET_APPROVE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isLogedIn: false,
+        isAdmin: false,
+        user: action.user,
+        error: {
+          hasError: false,
+          title: '',
+          description: '',
+        },
+      };
     case AUTH_FAILURE:
     case REG_FAILURE:
     case USER_FAILURE:
     case LOGOUT_FAILURE:
+    case SET_APPROVE_FAILURE:
       return {
         ...state,
         loading: false,

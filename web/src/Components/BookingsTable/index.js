@@ -22,7 +22,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { visuallyHidden } from '@mui/utils';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBookingRequest } from 'src/app/actions/hotels';
+import { setApprove, setBookingRequest } from 'src/app/actions/hotels';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -79,18 +79,18 @@ const headCells = [
     disablePadding: false,
     label: 'Class',
   },
-  {
-    id: 'price',
-    numeric: true,
-    disablePadding: false,
-    label: 'Price ($)',
-  },
+  // {
+  //   id: 'price',
+  //   numeric: true,
+  //   disablePadding: false,
+  //   label: 'Price ($)',
+  // },
   {
     id: 'customer',
     numeric: true,
     disablePadding: false,
     label: 'Customer',
-  },
+  }, {}, {},
 ];
 
 function EnhancedTableHead(props) {
@@ -259,6 +259,7 @@ export default function BookingsTable({
   };
 
   const rows = useSelector((state) => state.hotelsReducer?.usersWithBookings);
+  console.log(rows);
   React.useEffect(() => {
     // console.log('UseEffect');
     dispatch(setBookingRequest({ action: 'forTable' }));
@@ -353,9 +354,9 @@ export default function BookingsTable({
                       tabIndex={-1}
                       key={row.name}
                       selected={isItemSelected}
-                      style={{
+                      style={row.approved === null ? {} : {
                         backgroundColor:
-                          (row.approved && '#d9ffcc') || '#ffcccc',
+                          (row.approved && '#d9ffcc') || (row.approved === false && '#ffcccc'),
                       }}
                     >
                       <TableCell padding="checkbox">
@@ -393,13 +394,16 @@ export default function BookingsTable({
                       <TableCell>{row.city}</TableCell>
                       <TableCell>{row.rooms}</TableCell>
                       <TableCell>{row.hclass}</TableCell>
-                      <TableCell>{row.price}</TableCell>
+                      {/* <TableCell>{row.price}</TableCell> */}
                       <TableCell>{row.user.fio}</TableCell>
                       {isAdmin && row.approved !== false && row.approved !== true && (
                         <TableCell>
-                          <Button color="success">Accept</Button>
-                          <Button color="error">Decline</Button>
+                          <Button onClick={() => { dispatch(setApprove({ row, status: true })); }} color="success">Accept</Button>
+                          <Button onClick={() => { dispatch(setApprove({ row, status: false })); }} color="error">Decline</Button>
                         </TableCell>
+                      )}
+                      {isAdmin && (row.approved === false || row.approved === true) && (
+                        <TableCell />
                       )}
                       <TableCell>
                         <Button

@@ -10,6 +10,8 @@ import {
   LOGOUT_SUCCESS,
   REG_FAILURE,
   REG_SUCCESS,
+  SET_APPROVE_FAILURE,
+  SET_APPROVE_SUCCESS,
   USER_FAILURE,
 } from 'src/utils/actions/hotels';
 
@@ -124,6 +126,34 @@ export default {
       yield put({ type: LOGOUT_SUCCESS });
     } catch (error) {
       yield put({ type: LOGOUT_FAILURE, error });
+    }
+  },
+
+  setApproveSaga: function* setApproveSaga(data: any) {
+    try {
+      // @ts-ignore
+      const users = JSON.parse(localStorage.getItem('Users'));
+      const newUsers = users.map((user: any) => {
+        // тут лог
+        if (user.login === data.payload.row.login) {
+          const newBooking = user.bookings.find((booking: any) => booking.id === data.payload.row.id);
+          const otherBookings = user.bookings.filter((booking: any) => booking.id !== data.payload.row.id);
+          user.bookings = [newBooking, ...otherBookings];
+        }
+        return user;
+      });
+      localStorage.setItem('Users', JSON.stringify(newUsers));
+      // тут лог
+      // @ts-ignore
+      const currentUser = JSON.parse(localStorage.getItem('user'));
+      const newBooking = currentUser.bookings.find((booking: any) => booking.id === data.payload.row.id);
+      const otherBookings = currentUser.bookings.filter((booking: any) => booking.id !== data.payload.row.id);
+      const newCurrentUser = { ...currentUser, bookings: [newBooking, ...otherBookings] };
+      localStorage.setItem('user', JSON.stringify(newCurrentUser));
+
+      yield put({ type: SET_APPROVE_SUCCESS, newCurrentUser });
+    } catch (error) {
+      yield put({ type: SET_APPROVE_FAILURE, error });
     }
   },
 };

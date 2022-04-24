@@ -42,7 +42,8 @@
       "react/prop-types": "warn",
       "react/no-unused-prop-types": "warn",
       "operator-linebreak": "off",
-      "linebreak-style": "off"
+      "linebreak-style": "off",
+      "no-param-reassign": "off"
       // "@typescript-eslint/no-use-before-define": ["error"]
     }
 }

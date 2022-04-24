@@ -66,7 +66,7 @@ const Header = () => {
           {isLogedIn && (
             <Button
               variant="contained"
-              color="primary"
+              color="error"
               onClick={() => {
                 dispatch(logoutRequest());
               }}

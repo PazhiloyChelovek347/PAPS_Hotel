@@ -4,6 +4,7 @@ import {
   delHotelRequest,
   editHotelRequest,
   getHotelsRequest,
+  setApprove,
   setBookingRequest,
 } from '../actions/hotels';
 import {
@@ -26,4 +27,5 @@ export default function* sagaWatcher() {
   yield takeEvery(userSetRequest, userSaga.setAdminAndLoginSaga);
   yield takeEvery(setBookingRequest, hotelsSaga.setBookingsSaga);
   yield takeEvery(logoutRequest, userSaga.logoutSaga);
+  yield takeEvery(setApprove, userSaga.setApproveSaga);
 }

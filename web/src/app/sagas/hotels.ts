@@ -99,7 +99,7 @@ export default {
           break;
         case 'setup':
           usersWithoutChanges = users.filter((user: any) => user.login !== data.payload.user.login && user.fio !== data.payload.user.fio);
-          newUser = { ...data.payload.user, bookings: [...data.payload.user.bookings, { hotel: data.payload.id, approved: false }] };
+          newUser = { ...data.payload.user, bookings: [...data.payload.user.bookings, { hotel: data.payload.id, approved: null }] };
           localStorage.setItem('Users', JSON.stringify([...usersWithoutChanges, newUser]));
           localStorage.setItem('user', JSON.stringify(newUser));
           yield put({ type: BOOKINGS_SET_SUCCESS, users: [...usersWithoutChanges, newUser], newUser });
