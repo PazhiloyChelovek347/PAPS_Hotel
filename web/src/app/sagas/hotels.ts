@@ -1,3 +1,4 @@
+import { ConstructionOutlined } from '@mui/icons-material';
 import { put, call, select } from 'redux-saga/effects';
 import { ResponseGenerator } from 'src/types/common';
 // import { ResponseGenerator } from 'src/types/common';
@@ -41,6 +42,8 @@ export default {
     try {
       // @ts-ignore
       localStorage.setItem('Hotels', JSON.stringify([...JSON.parse(localStorage.getItem('Hotels')), data.payload]));
+      // @ts-ignore
+      localStorage.setItem('ids', JSON.stringify(Number(JSON.parse(localStorage.getItem('ids'))) + 1));
       yield put({ type: HOTELS_ADD_SUCCESS, hotel: data.payload });
     } catch (error) {
       yield put({ type: HOTELS_ADD_FAILURE, error });

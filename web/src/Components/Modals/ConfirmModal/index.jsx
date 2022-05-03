@@ -16,6 +16,7 @@ import {
   delHotelRequest,
   editHotelRequest,
   setBookingRequest,
+  addHotelRequest,
 } from 'src/app/actions/hotels';
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -45,9 +46,9 @@ const useStyles = makeStyles((theme) => createStyles({
 const ConfirmModal = ({
   allForModal: {
     open = false,
-    toggleOpen = () => {},
+    toggleOpen = () => { },
     action = 'this',
-    setConfirm = () => {},
+    setConfirm = () => { },
     newHotel = {},
     id = null,
     booking = {},
@@ -88,6 +89,9 @@ const ConfirmModal = ({
               }
               if (action === 'booking') {
                 dispatch(setBookingRequest({ id, user, action: 'setup' }));
+              }
+              if (action === 'adding hotel') {
+                dispatch(addHotelRequest(newHotel));
               }
               toggleOpen();
             }}

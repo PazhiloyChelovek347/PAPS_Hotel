@@ -5,9 +5,10 @@ import {
   TextField,
   Button,
 } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import { DocumentScanner } from '@mui/icons-material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { useSelector } from 'react-redux';
+import { setHotelModal } from 'src/app/actions/hotels';
 import ConfirmModal from '../ConfirmModal';
 
 const useStyles = makeStyles((theme) => createStyles({
@@ -48,23 +49,33 @@ const useStyles = makeStyles((theme) => createStyles({
 }));
 
 const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfirm = () => {} }) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const isAdmin = useSelector((state) => state.userReducer?.isAdmin);
   const isLogedIn = useSelector((state) => state.userReducer?.isLogedIn);
   const [newHotel, setNewHotel] = useState({});
+  // const open = useSelector((state) => state.hotelsReducer?.hotelModalData.open);
+  const hotelModalData = useSelector((state) => state.hotelsReducer?.hotelModalData);
 
   const handleChange = (event) => {
     setNewHotel((p) => ({ ...p, [event.target.id]: event.target.value }));
   };
+
+  useEffect(() => {
+  });
+
   return (
     <Modal
       open={open}
-      onClose={() => { toggleOpen(); setNewHotel({}); }}
+      onClose={() => {
+        dispatch(setHotelModal({ open: !open }));
+        setNewHotel({});
+      }}
     >
       <Paper className={classes.paper}>
         <span>
           <Typography variant="h5">
-            {`Hotel "${hotel?.name}"`}
+            New hotel:
           </Typography>
         </span>
         <div className={classes.cont}>
@@ -75,7 +86,7 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfi
               </span>
               <TextField
                 id="name"
-                defaultValue={hotel?.name}
+                defaultValue=""
                 variant="outlined"
                 className={classes.textFields}
                 disabled={!isAdmin}
@@ -89,7 +100,7 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfi
             </span>
             <TextField
               id="city"
-              defaultValue={hotel?.city}
+              defaultValue=""
               variant="outlined"
               className={classes.textFields}
               disabled={!isAdmin}
@@ -102,7 +113,7 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfi
             </span>
             <TextField
               id="rooms"
-              defaultValue={hotel?.rooms}
+              defaultValue=""
               variant="outlined"
               className={classes.textFields}
               disabled={!isAdmin}
@@ -115,7 +126,7 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfi
             </span>
             <TextField
               id="hclass"
-              defaultValue={hotel?.hclass}
+              defaultValue=""
               variant="outlined"
               className={classes.textFields}
               disabled={!isAdmin}
@@ -128,7 +139,7 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfi
             </span>
             <TextField
               id="price"
-              defaultValue={hotel?.price}
+              defaultValue=""
               variant="outlined"
               className={classes.textFields}
               disabled={!isAdmin}
@@ -137,42 +148,29 @@ const HotelModal = ({ allForModal: { open, toggleOpen, hotel = {} }, setAllConfi
           </div>
         </div>
         <div className={classes.divWithButtons}>
-          <Button variant="contained" onClick={toggleOpen}>Close</Button>
           {isAdmin && (
-          <Button
-            onClick={() => setAllConfirm((p) => ({
-              ...p, open: true, action: 'editing', newHotel: { ...hotel, ...newHotel },
-            }))}
-            variant="contained"
-            color="success"
-          >
-            Edit
-          </Button>
+            <Button
+              onClick={() => setAllConfirm((p) => ({
+                ...p, open: true, action: 'adding hotel', newHotel: { ...hotel, ...newHotel, id: Number(JSON.parse(localStorage.getItem('ids'))) },
+              }))}
+              variant="contained"
+              color="success"
+            >
+              Add
+            </Button>
           )}
           {isAdmin && (
-          <Button
-            onClick={() => {
-              setAllConfirm((p) => ({
-                ...p, open: true, action: 'delete', id: hotel.id, toggleHotel: toggleOpen,
-              }));
-            }}
-            variant="contained"
-            color="error"
-          >
-            Delete
-          </Button>
-          )}
-          {!isAdmin && isLogedIn && (
-          <Button
-            onClick={() => {
-              setAllConfirm((p) => ({
-                ...p, open: true, action: 'booking', id: hotel.id, user: JSON.parse(localStorage.getItem('user')),
-              }));
-            }}
-            variant="contained"
-          >
-            Book
-          </Button>
+            <Button
+              onClick={() => {
+                setAllConfirm((p) => ({
+                  ...p, open: true, action: 'cancel', id: hotel.id, toggleHotel: toggleOpen,
+                }));
+              }}
+              variant="contained"
+              color="error"
+            >
+              Cancel
+            </Button>
           )}
         </div>
       </Paper>

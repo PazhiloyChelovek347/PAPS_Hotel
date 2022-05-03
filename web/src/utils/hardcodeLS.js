@@ -46,4 +46,8 @@ export const setTestData = () => {
     'Users',
     JSON.stringify(users),
   );
+  window.localStorage.setItem(
+    'ids',
+    JSON.stringify(10),
+  );
 };
