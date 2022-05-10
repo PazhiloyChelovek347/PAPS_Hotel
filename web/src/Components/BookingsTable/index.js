@@ -398,8 +398,26 @@ export default function BookingsTable({
                       <TableCell>{row.user.fio}</TableCell>
                       {isAdmin && row.approved !== false && row.approved !== true && (
                         <TableCell>
-                          <Button onClick={() => { dispatch(setApprove({ row, status: true })); }} color="success">Accept</Button>
-                          <Button onClick={() => { dispatch(setApprove({ row, status: false })); }} color="error">Decline</Button>
+                          <Button
+                            onClick={() => {
+                              dispatch(setBookingRequest({ row, status: true, action: 'setup' }));
+                            }}
+                            color="success"
+                          >
+                            Accept
+
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              dispatch(setBookingRequest({
+                                row, status: false, action: 'setup', user: row.user,
+                              }));
+                            }}
+                            color="error"
+                          >
+                            Decline
+
+                          </Button>
                         </TableCell>
                       )}
                       {isAdmin && (row.approved === false || row.approved === true) && (

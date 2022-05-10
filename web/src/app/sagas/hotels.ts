@@ -87,6 +87,7 @@ export default {
       let usersWithoutChanges;
       let newUser;
       let temp;
+      console.log(11111, data.payload);
       switch (data.payload.action) {
         case 'delete':
           if (!users.find((u: any) => u.bookings.find((b: any) => b.hotel === data.payload.id))) {
@@ -101,8 +102,22 @@ export default {
           yield put({ type: BOOKINGS_SETUP_SUCCESS, users: temp });
           break;
         case 'setup':
-          usersWithoutChanges = users.filter((user: any) => user.login !== data.payload.user.login && user.fio !== data.payload.user.fio);
-          newUser = { ...data.payload.user, bookings: [...data.payload.user.bookings, { hotel: data.payload.id, approved: null }] };
+          console.log(123123, data.payload);
+          usersWithoutChanges = users.filter((user: any) => user?.login !== (data?.payload?.user?.login || data.payload?.row?.user?.login) && user.fio !== (data?.payload?.user?.fio && data.payload?.row?.user?.fio));
+          newUser = {
+            ...(data?.payload?.user || data?.payload?.row?.user),
+            bookings: [
+              ...(
+                data?.payload?.user?.bookings.filter((booking: any) => booking.status !== false && booking.status !== true)
+                || data?.payload?.row?.user?.bookings.filter((booking: any) => booking.status !== false && booking.status !== true)
+              ), {
+                hotel: data.payload.id
+                   || data?.payload?.row?.hotel,
+                approved: null
+                    || data.payload.status,
+              },
+            ],
+          };
           localStorage.setItem('Users', JSON.stringify([...usersWithoutChanges, newUser]));
           localStorage.setItem('user', JSON.stringify(newUser));
           yield put({ type: BOOKINGS_SET_SUCCESS, users: [...usersWithoutChanges, newUser], newUser });

@@ -75,7 +75,7 @@ const LogModal = ({ open, toggleOpen, toggleReg }) => {
           <span>Password: </span>
           <TextField
             id="password"
-            type="password"
+            type={showPassword && 'password'}
             variant="outlined"
             className={classes.textFields}
             onChange={handleChange}
