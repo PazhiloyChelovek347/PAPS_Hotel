@@ -19,7 +19,7 @@ function HomePage() {
 
   return (
     <>
-      <Header />
+      <Header menuProp={false} />
       <MainContainer />
     </>
   );

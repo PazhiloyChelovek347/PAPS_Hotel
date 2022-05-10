@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logoutRequest, userSetRequest } from 'src/app/actions/user';
 import { setHotelModal } from 'src/app/actions/hotels';
 
-const Header = () => {
+const Header = ({ menuProp = true }: any) => {
   const dispatch = useDispatch();
   // @ts-ignore
   const isLogedIn = useSelector((state) => state.userReducer?.isLogedIn);
@@ -36,7 +36,7 @@ const Header = () => {
             </Typography>
           </Link>
         </span>
-        {isAdmin && (
+        {isAdmin && menuProp && (
           <div style={{ width: 350, display: 'flex', justifyContent: 'space-between' }}>
             <span>
               hotels

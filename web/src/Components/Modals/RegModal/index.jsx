@@ -6,6 +6,7 @@ import {
   Typography,
   TextField,
   Button,
+  FormControl,
 } from '@mui/material';
 import {
   createStyles,
@@ -13,6 +14,9 @@ import {
 } from '@mui/styles';
 import { useDispatch } from 'react-redux';
 import { regRequest } from 'src/app/actions/user';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
 
 const useStyles = makeStyles(() => createStyles({
   paper: {
@@ -41,6 +45,7 @@ const useStyles = makeStyles(() => createStyles({
 const RegModal = ({ open, toggleOpen, toggleLog }) => {
   const classes = useStyles();
   const [user, setUser] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
   const handleChange = (event) => {
     setUser({ ...user, [event.target.id]: event.target.value });
   };
@@ -66,10 +71,22 @@ const RegModal = ({ open, toggleOpen, toggleLog }) => {
           <span>Password: </span>
           <TextField
             id="password"
+            type={showPassword ? 'text' : 'password'}
             variant="outlined"
             className={classes.textFields}
             onChange={handleChange}
+            style={{ width: 285, 'padding-left': 31 }}
+            error={showPassword}
+            helperText={showPassword && 'Incorrect entry.'}
           />
+          <IconButton
+            aria-label="toggle password visibility"
+            onClick={() => {
+              setShowPassword(!showPassword);
+            }}
+          >
+            {showPassword ? <Visibility /> : <VisibilityOff />}
+          </IconButton>
         </div>
         <div className={classes.divWithInput}>
           <span>FIO: </span>

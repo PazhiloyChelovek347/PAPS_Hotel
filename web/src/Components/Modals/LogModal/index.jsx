@@ -16,6 +16,9 @@ import {
   useSelector,
 } from 'react-redux';
 import { authRequest } from 'src/app/actions/user';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
 
 const useStyles = makeStyles(() => createStyles({
   paper: {
@@ -44,11 +47,13 @@ const useStyles = makeStyles(() => createStyles({
 const LogModal = ({ open, toggleOpen, toggleReg }) => {
   const classes = useStyles();
   const [user, setUser] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const handleChange = (event) => {
     setUser({ ...user, [event.target.id]: event.target.value });
   };
   const isLogedIn = useSelector((state) => state.userReducer?.isLogedIn);
+  const error = useSelector((state) => state.userReducer?.error);
 
   return (
     <Modal
@@ -70,10 +75,22 @@ const LogModal = ({ open, toggleOpen, toggleReg }) => {
           <span>Password: </span>
           <TextField
             id="password"
+            type="password"
             variant="outlined"
             className={classes.textFields}
             onChange={handleChange}
+            style={{ width: 285, 'padding-left': 31 }}
+            error={error.hasError}
+            helperText={error.hasError && error.title}
           />
+          <IconButton
+            aria-label="toggle password visibility"
+            onClick={() => {
+              setShowPassword(!showPassword);
+            }}
+          >
+            {showPassword ? <Visibility /> : <VisibilityOff />}
+          </IconButton>
         </div>
         <div className={classes.divWithInput}>
           <Button
